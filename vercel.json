@@ -1,0 +1,25 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "rewrites": [
+    { "source": "/shop", "destination": "/pages/shop.html" },
+    { "source": "/customizer", "destination": "/pages/customizer.html" },
+    { "source": "/cart", "destination": "/pages/cart.html" },
+    { "source": "/checkout", "destination": "/pages/checkout.html" },
+    { "source": "/account", "destination": "/pages/account.html" },
+    { "source": "/blog", "destination": "/pages/blog.html" },
+    { "source": "/about", "destination": "/pages/about.html" },
+    { "source": "/faq", "destination": "/pages/faq.html" },
+    { "source": "/contact", "destination": "/pages/contact.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ]
+}
