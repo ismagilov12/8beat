@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8BEAT Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --red: #E52521;
+      --blue: #049CD8;
+      --yellow: #FBD000;
+      --green: #43B047;
+      --dark: #1a1a2e;
+      --darker: #0f0f1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: rgba(15, 15, 30, 0.95);
+      border-bottom: 4px solid var(--yellow);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-logo {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-shadow: 2px 2px 0 var(--red), 4px 4px 0 var(--blue);
+    }
+
+    .navbar-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .navbar-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border: 2px solid transparent;
+    }
+
+    .navbar-nav a:hover {
+      color: var(--yellow);
+      border-bottom: 2px solid var(--yellow);
+    }
+
+    .logout-btn {
+      background: var(--red) !important;
+      color: #fff !important;
+      border: 2px solid var(--red) !important;
+      padding: 0.5rem 1.5rem !important;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: transparent !important;
+      transform: scale(1.05);
+    }
+
+    .container {
+      flex: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .login-box {
+      background: rgba(26, 26, 46, 0.8);
+      border: 4px solid var(--yellow);
+      padding: 3rem;
+      border-radius: 0;
+      box-shadow: 0 8px 32px rgba(245, 176, 0, 0.2), 0 0 20px rgba(230, 37, 33, 0.3);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-box h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 0 var(--red), 3px 3px 0 var(--blue);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    input[type="color"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--blue);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      border-radius: 0;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="number"]:focus,
+    input[type="color"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 10px rgba(251, 208, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--yellow);
+      color: var(--dark);
+      border: none;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px rgba(251, 208, 0, 0.3);
+    }
+
+    .login-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 16px rgba(251, 208, 0, 0.5);
+    }
+
+    .login-btn:active {
+      transform: scale(0.98);
+    }
+
+    .error-message {
+      background: rgba(229, 37, 33, 0.2);
+      border: 2px solid var(--red);
+      color: var(--red);
+      padding: 1rem;
+      border-radius: 0;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .success-message {
+      background: rgba(67, 176, 71, 0.2);
+      border: 2px solid var(--green);
+      color: var(--green);
+      padding: 1rem;
+      border-radius: 0;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Dashboard */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .dashboard-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--red);
+    }
+
+    .dashboard-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid currentColor;
+      background: transparent;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--dark);
+      border-color: var(--yellow);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(251, 208, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .btn-secondary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(4, 156, 216, 0.4);
+    }
+
+    .btn-danger {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+
+    .btn-danger:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(229, 37, 33, 0.4);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .product-card {
+      background: rgba(26, 26, 46, 0.6);
+      border: 3px solid var(--blue);
+      padding: 1.5rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      border-color: var(--yellow);
+      box-shadow: 0 8px 24px rgba(251, 208, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--red);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .product-name {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.9rem;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .product-info {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+
+    .product-info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-colors {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .color-swatch:hover {
+      border-color: #fff;
+      transform: scale(1.1);
+    }
+
+    .product-rating {
+      font-size: 0.85rem;
+      color: var(--yellow);
+      margin: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .product-actions button {
+      flex: 1;
+      padding: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--darker);
+      border: 4px solid var(--yellow);
+      padding: 2rem;
+      border-radius: 0;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 30px rgba(251, 208, 0, 0.3);
+    }
+
+    .modal-header {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 0 var(--red);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--yellow);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--red);
+      transform: scale(1.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--yellow);
+    }
+
+    .checkbox-wrapper label {
+      margin-bottom: 0;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .color-picker-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .color-input-wrapper {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.75rem;
+    }
+
+    input[type="color"] {
+      width: 60px;
+      height: 40px;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .form-actions button {
+      flex: 1;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-submit {
+      background: var(--green);
+      color: #fff;
+      border: 2px solid var(--green);
+    }
+
+    .btn-submit:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(67, 176, 71, 0.4);
+    }
+
+    .btn-cancel {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #666;
+    }
+
+    .btn-cancel:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* Loading & Messages */
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--yellow);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.9rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+    }
+
+    .empty-state h3 {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      border-radius: 0;
+      border: 2px solid;
+      font-weight: 600;
+      animation: slideIn 0.3s ease-in;
+      z-index: 2000;
+      max-width: 300px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast.success {
+      background: rgba(67, 176, 71, 0.2);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .toast.error {
+      background: rgba(229, 37, 33, 0.2);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+
+      .navbar-logo {
+        font-size: 0.9rem;
+      }
+
+      .navbar-nav {
+        gap: 1rem;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .navbar-nav a {
+        padding: 0.5rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dashboard-buttons {
+        width: 100%;
+      }
+
+      .dashboard-buttons button {
+        flex: 1;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .checkbox-group {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .color-picker-group {
+        grid-template-columns: 1fr;
+      }
+
+      .toast {
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-logo">8BEAT</div>
+    <div class="navbar-nav" id="navbar">
+      <a href="/">Магазин</a>
+      <a href="/customize">Кастомайзер</a>
+      <button class="logout-btn" id="logoutBtn" style="display: none;">Вихід</button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active login-screen">
+      <div class="login-box">
+        <h1>АДМІН ПАНЕЛЬ</h1>
+        <div id="loginError" class="error-message" style="display: none;"></div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit" class="login-btn">Вхід</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="screen">
+      <div class="dashboard-header">
+        <div class="dashboard-title">ПАНЕЛЬ УПРАВЛІННЯ</div>
+        <div class="dashboard-buttons">
+          <button class="btn btn-primary" id="addProductBtn">+ НОВИЙ ТОВАР</button>
+          <button class="btn btn-secondary" id="seedBtn">ЗАПОВНИТИ БД</button>
+        </div>
+      </div>
+
+      <div id="productsContainer">
+        <div class="loading">Завантаження товарів...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Product Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="modalTitle">НОВИЙ ТОВАР</span>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+
+      <form id="productForm">
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="productName">Назва товару:</label>
+            <input type="text" id="productName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productPrice">Ціна (₴):</label>
+            <input type="number" id="productPrice" min="1" required>
+          </div>
+          <div class="form-group">
+            <label for="productRating">Рейтинг:</label>
+            <select id="productRating" required>
+              <option value="">Виберіть</option>
+              <option value="1">1 зірка</option>
+              <option value="2">2 зірки</option>
+              <option value="3">3 зірки</option>
+              <option value="4">4 зірки</option>
+              <option value="5">5 зірок</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productCategory">Категорія:</label>
+            <select id="productCategory" required>
+              <option value="">Виберіть</option>
+              <option value="Геймер">Геймер</option>
+              <option value="Ретро">Ретро</option>
+              <option value="Абстракт">Абстракт</option>
+              <option value="Мінімалізм">Мінімалізм</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productType">Тип:</label>
+            <select id="productType" required>
+              <option value="">Виберіть</option>
+              <option value="Футболка">Футболка</option>
+              <option value="Худі">Худі</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Розміри:</label>
+          <div class="checkbox-group">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_XS" name="sizes" value="XS">
+              <label for="size_XS">XS</label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_S" name="sizes" value="S">
+              <label for="size_S">S</label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_M" name="sizes" value="M">
+              <label for="size_M">M</label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_L" name="sizes" value="L">
+              <label for="size_L">L</label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_XL" name="sizes" value="XL">
+              <label for="size_XL">XL</label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="size_XXL" name="sizes" value="XXL">
+              <label for="size_XXL">XXL</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="productBadge">Бейдж (опціонально):</label>
+            <input type="text" id="productBadge" placeholder="Наприклад: Hot, New, Популярна">
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Кольори:</label>
+          <div class="color-picker-group">
+            <div class="color-input-wrapper">
+              <label for="productColor1" style="margin-bottom: 0; flex: 1;">Колір 1:</label>
+              <input type="color" id="productColor1" value="#E52521" required>
+            </div>
+            <div class="color-input-wrapper">
+              <label for="productColor2" style="margin-bottom: 0; flex: 1;">Колір 2:</label>
+              <input type="color" id="productColor2" value="#049CD8" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-submit">ЗБЕРЕГТИ</button>
+          <button type="button" class="btn btn-cancel" id="cancelBtn">СКАСУВАТИ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // API Configuration
+    const API_BASE = '/api';
+    let authToken = null;
+    let currentEditingId = null;
+
+    // Screens
+    const loginScreen = document.getElementById('loginScreen');
+    const dashboardScreen = document.getElementById('dashboardScreen');
+    const productModal = document.getElementById('productModal');
+
+    // Forms
+    const loginForm = document.getElementById('loginForm');
+    const productForm = document.getElementById('productForm');
+    const passwordInput = document.getElementById('password');
+
+    // Buttons
+    const addProductBtn = document.getElementById('addProductBtn');
+    const seedBtn = document.getElementById('seedBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const modalClose = document.getElementById('modalClose');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Event Listeners
+    loginForm.addEventListener('submit', handleLogin);
+    addProductBtn.addEventListener('click', () => openProductModal(null));
+    seedBtn.addEventListener('click', handleSeed);
+    logoutBtn.addEventListener('click', logout);
+    modalClose.addEventListener('click', closeProductModal);
+    cancelBtn.addEventListener('click', closeProductModal);
+    productForm.addEventListener('submit', handleProductFormSubmit);
+
+    // Login Handler
+    async function handleLogin(e) {
+      e.preventDefault();
+      const password = passwordInput.value;
+
+      try {
+        const response = await fetch(`${API_BASE}/auth`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          authToken = data.token;
+          localStorage.setItem('8beat_token', authToken);
+          showScreen('dashboard');
+          loadProducts();
+          logoutBtn.style.display = 'block';
+        } else {
+          showError(document.getElementById('loginError'), 'Неправильний пароль');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        showError(document.getElementById('loginError'), 'Помилка підключення');
+      }
+    }
+
+    // Logout Handler
+    function logout() {
+      authToken = null;
+      localStorage.removeItem('8beat_token');
+      logoutBtn.style.display = 'none';
+      passwordInput.value = '';
+      showScreen('login');
+    }
+
+    // Screen Management
+    function showScreen(screenName) {
+      loginScreen.classList.remove('active');
+      dashboardScreen.classList.remove('active');
+
+      if (screenName === 'login') {
+        loginScreen.classList.add('active');
+      } else if (screenName === 'dashboard') {
+        dashboardScreen.classList.add('active');
+      }
+    }
+
+    // Products Management
+    async function loadProducts() {
+      const container = document.getElementById('productsContainer');
+      container.innerHTML = '<div class="loading">Завантаження товарів...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/products`);
+        const products = await response.json();
+
+        if (!products || products.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>БД ПОРОЖНЯ</h3>
+              <p>Натисніть "ЗАПОВНИТИ БД" щоб додати товари</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `<div class="products-grid">${products
+          .map((product) => createProductCard(product))
+          .join('')}</div>`;
+
+        // Attach event listeners to edit/delete buttons
+        document.querySelectorAll('.btn-edit').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            const productId = e.target.dataset.id;
+            const product = products.find((p) => p.id === productId);
+            openProductModal(product);
+          });
+        });
+
+        document.querySelectorAll('.btn-delete').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            const productId = e.target.dataset.id;
+            if (confirm('Ви впевнені, що хочете видалити цей товар?')) {
+              deleteProduct(productId);
+            }
+          });
+        });
+      } catch (error) {
+        console.error('Load products error:', error);
+        container.innerHTML = `<div class="error-message">Помилка завантаження товарів</div>`;
+      }
+    }
+
+    function createProductCard(product) {
+      const badge = product.badge ? `<div class="product-badge">${product.badge}</div>` : '';
+      const colors = product.colors
+        .map(
+          (color) =>
+            `<div class="color-swatch" style="background-color: ${color};" title="${color}"></div>`
+        )
+        .join('');
+
+      return `
+        <div class="product-card">
+          ${badge}
+          <span class="product-name">${product.name}</span>
+          <div class="product-info">
+            <div class="product-info-row">
+              <span>ID:</span>
+              <strong>${product.id}</strong>
+            </div>
+            <div class="product-info-row">
+              <span>Ціна:</span>
+              <strong>${product.price} ₴</strong>
+            </div>
+            <div class="product-info-row">
+              <span>Категорія:</span>
+              <strong>${product.category}</strong>
+            </div>
+            <div class="product-info-row">
+              <span>Тип:</span>
+              <strong>${product.type}</strong>
+            </div>
+            <div class="product-info-row">
+              <span>Розміри:</span>
+              <strong>${product.sizes.join(', ')}</strong>
+            </div>
+            <div class="product-rating">★ ${product.rating}/5</div>
+            <div class="product-colors" title="Кольори">${colors}</div>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-primary btn-edit" data-id="${product.id}">РЕДАГУВАТИ</button>
+            <button class="btn btn-danger btn-delete" data-id="${product.id}">ВИДАЛИТИ</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Modal Management
+    function openProductModal(product) {
+      currentEditingId = product ? product.id : null;
+      const modalTitle = document.getElementById('modalTitle');
+
+      if (product) {
+        modalTitle.textContent = 'РЕДАГУВАТИ ТОВАР';
+        populateForm(product);
+      } else {
+        modalTitle.textContent = 'НОВИЙ ТОВАР';
+        productForm.reset();
+        document.querySelectorAll('input[name="sizes"]').forEach((cb) => (cb.checked = false));
+      }
+
+      productModal.classList.add('active');
+    }
+
+    function closeProductModal() {
+      productModal.classList.remove('active');
+      productForm.reset();
+      currentEditingId = null;
+    }
+
+    function populateForm(product) {
+      document.getElementById('productName').value = product.name;
+      document.getElementById('productPrice').value = product.price;
+      document.getElementById('productCategory').value = product.category;
+      document.getElementById('productType').value = product.type;
+      document.getElementById('productRating').value = product.rating;
+      document.getElementById('productBadge').value = product.badge || '';
+      document.getElementById('productColor1').value = product.colors[0] || '#E52521';
+      document.getElementById('productColor2').value = product.colors[1] || '#049CD8';
+
+      document.querySelectorAll('input[name="sizes"]').forEach((cb) => {
+        cb.checked = product.sizes.includes(cb.value);
+      });
+    }
+
+    async function handleProductFormSubmit(e) {
+      e.preventDefault();
+
+      const sizes = Array.from(document.querySelectorAll('input[name="sizes"]:checked')).map(
+        (cb) => cb.value
+      );
+
+      if (sizes.length === 0) {
+        showToast('Виберіть хоча б один розмір', 'error');
+        return;
+      }
+
+      const productData = {
+        name: document.getElementById('productName').value,
+        price: parseInt(document.getElementById('productPrice').value),
+        category: document.getElementById('productCategory').value,
+        type: document.getElementById('productType').value,
+        sizes,
+        rating: parseInt(document.getElementById('productRating').value),
+        badge: document.getElementById('productBadge').value || null,
+        colors: [
+          document.getElementById('productColor1').value,
+          document.getElementById('productColor2').value,
+        ],
+      };
+
+      try {
+        let response;
+        if (currentEditingId) {
+          response = await fetch(`${API_BASE}/products/${currentEditingId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(productData),
+          });
+        } else {
+          response = await fetch(`${API_BASE}/products`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(productData),
+          });
+        }
+
+        if (response.ok) {
+          showToast(currentEditingId ? 'Товар оновлено' : 'Товар додано', 'success');
+          closeProductModal();
+          loadProducts();
+        } else {
+          showToast('Помилка збереження', 'error');
+        }
+      } catch (error) {
+        console.error('Form submit error:', error);
+        showToast('Помилка підключення', 'error');
+      }
+    }
+
+    async function deleteProduct(productId) {
+      try {
+        const response = await fetch(`${API_BASE}/products/${productId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        if (response.ok) {
+          showToast('Товар видалено', 'success');
+          loadProducts();
+        } else {
+          showToast('Помилка видалення', 'error');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        showToast('Помилка підключення', 'error');
+      }
+    }
+
+    // Seed Handler
+    async function handleSeed() {
+      if (!confirm('Заповнити БД товарами за замовчуванням?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/seed`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({}),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showToast(`БД заповнена (${data.count} товарів)`, 'success');
+          loadProducts();
+        } else {
+          showToast(data.message || 'Помилка заповнення', 'error');
+        }
+      } catch (error) {
+        console.error('Seed error:', error);
+        showToast('Помилка підключення', 'error');
+      }
+    }
+
+    // UI Helpers
+    function showError(element, message) {
+      element.textContent = message;
+      element.style.display = 'block';
+    }
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    // Initialize
+    function init() {
+      const savedToken = localStorage.getItem('8beat_token');
+      if (savedToken) {
+        authToken = savedToken;
+        showScreen('dashboard');
+        loadProducts();
+        logoutBtn.style.display = 'block';
+      } else {
+        showScreen('login');
+      }
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>
