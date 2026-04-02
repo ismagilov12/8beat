@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акаунт | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .auth-section {
+            border: 3px solid #049CD8;
+            padding: 30px;
+            background-color: rgba(4, 156, 216, 0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            padding: 12px 25px;
+            border: 3px solid #FBD000;
+            background-color: transparent;
+            color: #FBD000;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background-color: #FBD000;
+            color: #1a1a2e;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #049CD8;
+            font-size: 11px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #FBD000;
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            margin-bottom: 8px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #049CD8;
+            box-shadow: 0 0 10px rgba(4, 156, 216, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        .profile-section {
+            display: none;
+            border: 3px solid #43B047;
+            padding: 30px;
+            background-color: rgba(67, 176, 71, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .profile-section.active {
+            display: block;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #43B047;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #FBD000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            background-color: #049CD8;
+        }
+
+        .profile-info h3 {
+            color: #43B047;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .profile-stat {
+            color: #049CD8;
+            font-size: 11px;
+            margin: 5px 0;
+        }
+
+        .profile-stat .value {
+            color: #FBD000;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #43B047;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #049CD8;
+            border: 2px solid #049CD8;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            transition: all 0.2s;
+            margin-bottom: -3px;
+        }
+
+        .tab-btn.active {
+            background-color: #049CD8;
+            color: #1a1a2e;
+            border-bottom: 3px solid #43B047;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .order-item {
+            border: 2px solid #049CD8;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: rgba(4, 156, 216, 0.03);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #FBD000;
+            font-size: 12px;
+        }
+
+        .order-status {
+            color: #43B047;
+            font-weight: bold;
+        }
+
+        .order-items {
+            color: #049CD8;
+            font-size: 11px;
+            margin: 8px 0;
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .design-card {
+            border: 2px solid #FBD000;
+            padding: 15px;
+            background-color: rgba(251, 208, 0, 0.05);
+            text-align: center;
+        }
+
+        .design-preview {
+            width: 100%;
+            height: 150px;
+            background-color: #049CD8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .design-name {
+            color: #FBD000;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .design-date {
+            color: #049CD8;
+            font-size: 10px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-buttons {
+                flex-direction: column;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .design-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">АКАУНТ ГРАВЦЯ</div>
+
+        <!-- Auth Section -->
+        <div id="auth-section" class="auth-section">
+            <div class="toggle-buttons">
+                <button class="toggle-btn active" onclick="toggleAuth('login')">ВХІД</button>
+                <button class="toggle-btn" onclick="toggleAuth('register')">РЕЄСТРАЦІЯ</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="player@8beat.ua" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="submit-btn">УВІЙТИ В ГРУ</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="register-name">Ім'я гравця</label>
+                    <input type="text" id="register-name" placeholder="Player123" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="player@8beat.ua" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Пароль</label>
+                    <input type="password" id="register-password" placeholder="••••••••" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password-confirm">Підтвердіть пароль</label>
+                    <input type="password" id="register-password-confirm" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="submit-btn">ПОЧАТИ ГРУ</button>
+            </form>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile-section" class="profile-section">
+            <div class="profile-header">
+                <div class="avatar">👾</div>
+                <div class="profile-info">
+                    <h3 id="player-name">Player123</h3>
+                    <div class="profile-stat">Рівень: <span class="value">5</span></div>
+                    <div class="profile-stat">XP: <span class="value">2,450</span></div>
+                    <div class="profile-stat">Артефактів зібрано: <span class="value">23</span></div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('profile-info')">ПРОФІЛЬ</button>
+                <button class="tab-btn" onclick="switchTab('orders')">ЗАМОВЛЕННЯ</button>
+                <button class="tab-btn" onclick="switchTab('designs')">ДИЗАЙНИ</button>
+            </div>
+
+            <!-- Profile Info Tab -->
+            <div id="profile-info" class="tab-content active">
+                <div style="border: 2px solid #049CD8; padding: 15px; background-color: rgba(4, 156, 216, 0.03); margin-bottom: 20px;">
+                    <div class="profile-stat">Email: <span class="value" id="profile-email">player@8beat.ua</span></div>
+                    <div class="profile-stat">Приєднався: <span class="value">15.03.2024</span></div>
+                    <div class="profile-stat">Статус: <span class="value" style="color: #43B047;">Активний гравець 🎮</span></div>
+                </div>
+                <button class="submit-btn" onclick="editProfile()">РЕДАГУВАТИ ПРОФІЛЬ</button>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="orders" class="tab-content">
+                <div class="order-item">
+                    <div class="order-header">
+                        <span>#8BEAT123456</span>
+                        <span class="order-status">✓ ДОСТАВЛЕНО</span>
+                    </div>
+                    <div class="order-items">• 8BEAT Pixel Art T-Shirt (M) - 299₴<br>• Кастомна наклейка - 49₴</div>
+                    <div class="profile-stat">Дата: 01.04.2024</div>
+                </div>
+                <div class="order-item">
+                    <div class="order-header">
+                        <span>#8BEAT123455</span>
+                        <span class="order-status">📦 В ДОРОГЕ</span>
+                    </div>
+                    <div class="order-items">• 8BEAT Retro Poster - 199₴</div>
+                    <div class="profile-stat">Дата: 25.03.2024</div>
+                </div>
+            </div>
+
+            <!-- Designs Tab -->
+            <div id="designs" class="tab-content">
+                <div class="design-grid">
+                    <div class="design-card">
+                        <div class="design-preview">🎮</div>
+                        <div class="design-name">Gamepad</div>
+                        <div class="design-date">20.03.2024</div>
+                    </div>
+                    <div class="design-card">
+                        <div class="design-preview">❤️</div>
+                        <div class="design-name">Pixel Heart</div>
+                        <div class="design-date">15.03.2024</div>
+                    </div>
+                    <div class="design-card">
+                        <div class="design-preview">👾</div>
+                        <div class="design-name">Space Invader</div>
+                        <div class="design-date">10.03.2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="handleLogout()">ВИЙТИ З ГРУ</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        function toggleAuth(mode) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const btns = document.querySelectorAll('.toggle-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            if (mode === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                btns[0].classList.add('active');
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                btns[1].classList.add('active');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const name = email.split('@')[0];
+
+            localStorage.setItem('player-name', name);
+            localStorage.setItem('player-email', email);
+            localStorage.setItem('player-level', '5');
+
+            showProfile(name, email);
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password1 = document.getElementById('register-password').value;
+            const password2 = document.getElementById('register-password-confirm').value;
+
+            if (password1 !== password2) {
+                alert('Паролі не збігаються!');
+                return;
+            }
+
+            localStorage.setItem('player-name', name);
+            localStorage.setItem('player-email', email);
+            localStorage.setItem('player-level', '1');
+
+            showProfile(name, email);
+        }
+
+        function showProfile(name, email) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('profile-section').classList.add('active');
+            document.getElementById('player-name').textContent = name;
+            document.getElementById('profile-email').textContent = email;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function editProfile() {
+            alert('✓ Функція редагування прийде в наступному обновленні патчу! 🎮');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('player-name');
+            localStorage.removeItem('player-email');
+            localStorage.removeItem('player-level');
+
+            document.getElementById('auth-section').style.display = 'block';
+            document.getElementById('profile-section').classList.remove('active');
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+            document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+            document.querySelectorAll('.toggle-btn')[1].classList.remove('active');
+        }
+
+        // Check if user is logged in
+        window.addEventListener('load', () => {
+            const playerName = localStorage.getItem('player-name');
+            const playerEmail = localStorage.getItem('player-email');
+
+            if (playerName && playerEmail) {
+                showProfile(playerName, playerEmail);
+            }
+        });
+    </script>
+</body>
+</html>
