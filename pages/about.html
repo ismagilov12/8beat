@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про нас | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            border: 3px solid #049CD8;
+            padding: 30px;
+            margin-bottom: 30px;
+            background-color: rgba(4, 156, 216, 0.05);
+        }
+
+        .section h2 {
+            color: #E52521;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .section-text {
+            color: #049CD8;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .mission-text {
+            color: #FBD000;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 15px;
+            border-left: 4px solid #FBD000;
+            background-color: rgba(251, 208, 0, 0.1);
+            margin: 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            border: 3px solid #FBD000;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(251, 208, 0, 0.05);
+        }
+
+        .stat-number {
+            color: #FBD000;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #049CD8;
+            font-size: 11px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            border: 2px solid #43B047;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(67, 176, 71, 0.05);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #FBD000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background-color: #049CD8;
+            margin: 0 auto 15px;
+        }
+
+        .member-name {
+            color: #E52521;
+            font-size: 12px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .member-role {
+            color: #FBD000;
+            font-size: 10px;
+        }
+
+        .timeline {
+            border-left: 4px solid #E52521;
+            padding-left: 20px;
+        }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: #E52521;
+            border: 2px solid #1a1a2e;
+        }
+
+        .timeline-year {
+            color: #FBD000;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .timeline-text {
+            color: #049CD8;
+            font-size: 11px;
+        }
+
+        .highlight {
+            color: #43B047;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            border: 3px solid #43B047;
+            padding: 30px;
+            text-align: center;
+            background-color: rgba(67, 176, 71, 0.05);
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">ПРО ГІЛЬДІЮ 8BEAT</div>
+
+        <!-- Mission Section -->
+        <div class="section">
+            <h2>⚔️ НАША МЕТА</h2>
+            <p class="section-text">
+                8BEAT – це не просто крамниця мерчу. Це спільнота геймерів, художників і мрійників,
+                які вірять, що ретро-культура живе і розвивається. Ми створюємо одяг, який розповідає
+                історію вашої пристрасті до 8-бітних ігор, пікселю-арту та неминучої ностальгії.
+            </p>
+            <div class="mission-text">
+                💭 «Ми — команда геймерів що створює найкращий мерч. Кожна футболка – це твоя гра.
+                Кожен дизайн – це твоя історія.»
+            </div>
+            <p class="section-text">
+                Наша мета – не лише продавати, а надихати. Кожен товар 8BEAT несе в собі дух золотого
+                віку ігрової індустрії та енергію сучасного геймінгу.
+            </p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="section">
+            <h2>📊 НАШІ ДОСЯГНЕННЯ</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">УНІКАЛЬНИХ ДИЗАЙНІВ</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">АКТИВНИХ ГРАВЦІВ</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">50000+</div>
+                    <div class="stat-label">РОЗДАНИХ ФУТБОЛОК</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">24+</div>
+                    <div class="stat-label">КРАЇН ДОСТАВКИ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section">
+            <h2>👾 КОМАНДА ГІЛЬДІЇ</h2>
+            <p class="section-text">Познайомтесь з творцями 8BEAT:</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="avatar">🎮</div>
+                    <div class="member-name">ВЛАД ГЕЙМЕР</div>
+                    <div class="member-role">ГРОССМЕЙСТЕР</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🎨</div>
+                    <div class="member-name">АЛІНА ПІКСЕЛЕР</div>
+                    <div class="member-role">ХУДОЖНИЦЯ</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">⚙️</div>
+                    <div class="member-name">МАКС КОДЕНІУС</div>
+                    <div class="member-role">РОЗРОБНИК</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">📱</div>
+                    <div class="member-name">МАРІЯ МАРКЕТОЛОГ</div>
+                    <div class="member-role">КОМУНІКАТОР</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🎯</div>
+                    <div class="member-name">ДІМА ЛОГІСТ</div>
+                    <div class="member-role">КАПІТАН ЛОТУ</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">💡</div>
+                    <div class="member-name">КАТЯ ІДЕЙНИЦЯ</div>
+                    <div class="member-role">КРЕАТОР</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="section">
+            <h2>📜 ІСТОРІЯ ГІЛЬДІЇ</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2022 • РІВЕНЬ 1</div>
+                    <div class="timeline-text">
+                        Запуск проекту 8BEAT. Перша колекція з 10 дизайнів наприклад Space Invaders та Pac-Man.
+                        100 перших гравців, які вірили в нас.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023 • РІВЕНЬ 2</div>
+                    <div class="timeline-text">
+                        Розширення до 500+ дизайнів. Запуск <span class="highlight">кастомайзера</span> –
+                        інструменту для створення власних дизайнів. Перші 1000 гравців!
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2024 • РІВЕНЬ 3</div>
+                    <div class="timeline-text">
+                        Досягнення 1000+ дизайнів. Запуск блогу про ретро-культуру. Розширення доставки
+                        до 24 країн. 5000+ активних гравців. Запуск нового веб-сайту.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2025 • РІВЕНЬ 4</div>
+                    <div class="timeline-text">
+                        Планується запуск фізичного магазину в Києві. Колаборація з топовими художниками
+                        ретро-культури. Мобільне додаток для гравців.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Values Section -->
+        <div class="section">
+            <h2>🎯 НАШІ ЦІННОСТІ</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🎨</div>
+                    <div class="stat-label">КРЕАТИВНІСТЬ<br>Ми віримо в силу дизайну</div>
+                </div>
+                <div class="stat-box">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🤝</div>
+                    <div class="stat-label">СПІЛЬНОТА<br>Ми будуємо разом</div>
+                </div>
+                <div class="stat-box">
+                    <div style="font-size: 40px; margin-bottom: 10px;">♻️</div>
+                    <div class="stat-label">ЯКІСТЬ<br>Матеріали на век</div>
+                </div>
+                <div class="stat-box">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🌍</div>
+                    <div class="stat-label">КУЛЬТУРА<br>Ретро живе вічно</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>🎮 ПРИЄДНАЙСЯ ДО ГІЛЬДІЇ</h2>
+            <p class="section-text" style="color: #FBD000;">
+                Ти з нами? Начніш нову гру в 8BEAT?
+            </p>
+            <button class="cta-button" onclick="window.location.href='shop.html'">
+                РОЗПОЧАТИ ГРУ
+            </button>
+            <button class="cta-button" style="background-color: #049CD8; border-color: #049CD8;"
+                    onclick="window.location.href='contact.html'">
+                ЗРОБИТИ КОМПЛІМЕНТ
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+</body>
+</html>
