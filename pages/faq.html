@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧАстI Питання | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .faq-container {
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            border: 3px solid #049CD8;
+            margin-bottom: 15px;
+            background-color: rgba(4, 156, 216, 0.05);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background-color: rgba(4, 156, 216, 0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border-bottom: 3px solid #049CD8;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(4, 156, 216, 0.2);
+        }
+
+        .question-text {
+            color: #E52521;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0px #049CD8;
+        }
+
+        .toggle-icon {
+            color: #FBD000;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        .answer-text {
+            color: #049CD8;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .answer-highlight {
+            color: #FBD000;
+            font-weight: bold;
+        }
+
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 15px;
+            border: 2px solid #FBD000;
+            background-color: transparent;
+            color: #FBD000;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            transition: all 0.2s;
+        }
+
+        .category-btn.active {
+            background-color: #FBD000;
+            color: #1a1a2e;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #E52521;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .level-header {
+                font-size: 16px;
+            }
+
+            .question-text {
+                font-size: 11px;
+            }
+
+            .faq-categories {
+                gap: 5px;
+            }
+
+            .category-btn {
+                font-size: 9px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">ДОВІДНИК ГРАВЦЯ</div>
+
+        <div class="faq-categories">
+            <button class="category-btn active" onclick="filterFAQ('all')">ВСІ</button>
+            <button class="category-btn" onclick="filterFAQ('ordering')">ЗАМОВЛЕННЯ</button>
+            <button class="category-btn" onclick="filterFAQ('delivery')">ДОСТАВКА</button>
+            <button class="category-btn" onclick="filterFAQ('returns')">ПОВЕРНЕННЯ</button>
+            <button class="category-btn" onclick="filterFAQ('customizer')">КАСТОМАЙЗЕР</button>
+        </div>
+
+        <div class="faq-container" id="faq-list">
+            <!-- FAQ items will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        const faqData = [
+            {
+                id: 1,
+                category: 'ordering',
+                question: 'Як зробити замовлення?',
+                answer: 'Виберіть товар в крамниці, додайте в кошик, перейдіть до оформлення. Введіть контактні дані і виберіть спосіб доставки та оплати. Все просто як <span class="answer-highlight">Level 1</span>!'
+            },
+            {
+                id: 2,
+                category: 'ordering',
+                question: 'Чи можна изменить замовлення?',
+                answer: 'Якщо замовлення не відправлено, ви можете скасувати його і зробити новий. Якщо товар уже в дороге – <span class="answer-highlight">game over</span> цьому замовленню. Напишіть нам на support@8beat.ua для обговорення.'
+            },
+            {
+                id: 3,
+                category: 'ordering',
+                question: 'Які способи оплати підтримуються?',
+                answer: 'Ми приймаємо <span class="answer-highlight">LiqPay, WayForPay</span> та <span class="answer-highlight">накладений платіж</span>. Максимально зручно для кожного гравця!'
+            },
+            {
+                id: 4,
+                category: 'ordering',
+                question: 'Чи є знижки для постійних клієнтів?',
+                answer: 'Загальні промокоди: <span class="answer-highlight">RETRO (100₴), 8BIT (150₴), ARCADE (200₴), PIXEL (50₴)</span>. Підписуйтесь на соцмережі для нових кодів!'
+            },
+            {
+                id: 5,
+                category: 'delivery',
+                question: 'Скільки коштує доставка?',
+                answer: 'Доставка <span class="answer-highlight">Нова Пошта</span> або <span class="answer-highlight">УкрПошта</span> коштує <span class="answer-highlight">70₴</span>. Якщо замовлення більше <span class="answer-highlight">1000₴</span> – доставка <span class="answer-highlight">БЕЗКОШТОВНА</span>!'
+            },
+            {
+                id: 6,
+                category: 'delivery',
+                question: 'Як довго доставляєтесь?',
+                answer: 'Після підтвердження платежу ми упакуємо товар за <span class="answer-highlight">2-3 дні</span>. Доставка займає ще <span class="answer-highlight">2-5 днів</span> залежно від регіону. Так що всього <span class="answer-highlight">4-8 днів</span> від закупки до отримання!'
+            },
+            {
+                id: 7,
+                category: 'delivery',
+                question: 'Чи робите міжнародну доставку?',
+                answer: 'Так! Ми доставляємо в <span class="answer-highlight">24+ країни</span> через міжнародних партнерів. Вартість залежить від країни. Напишіть нам для деталей.'
+            },
+            {
+                id: 8,
+                category: 'returns',
+                question: 'Яка політика повернення?',
+                answer: 'Якщо товар має дефект або прибув пошкодженим – <span class="answer-highlight">повернення 100% безкоштовне</span>. Якщо змінилась думка – можна повернути в течение <span class="answer-highlight">14 днів</span> у оригінальній упаковці.'
+            },
+            {
+                id: 9,
+                category: 'customizer',
+                question: 'Як користуватися кастомайзером?',
+                answer: 'Перейдіть в <span class="answer-highlight">Кастомайзер</span>, виберіть базовий дизайн, додайте текст, змініть кольори. Ви можете використовувати пікселю-арт, смайлики та шари. Потім додайте в кошик!'
+            },
+            {
+                id: 10,
+                category: 'customizer',
+                question: 'Чи можна завантажити власний дизайн?',
+                answer: 'Поточно ми підтримуємо тільки вбудовані елементи кастомайзера. Але скоро буде можливість завантажувати PNG дизайни! <span class="answer-highlight">Stay tuned!</span>'
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderFAQ(filter = 'all') {
+            const faqList = document.getElementById('faq-list');
+            let filtered = filter === 'all' ? faqData : faqData.filter(item => item.category === filter);
+
+            if (filtered.length === 0) {
+                faqList.innerHTML = '<div class="no-results">Питань не знайдено 🤷</div>';
+                return;
+            }
+
+            faqList.innerHTML = filtered.map(item => `
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span class="question-text">${item.question}</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-text">${item.answer}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFAQ(element) {
+            element.classList.toggle('open');
+        }
+
+        function filterFAQ(category) {
+            currentFilter = category;
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderFAQ(category);
+        }
+
+        renderFAQ();
+    </script>
+</body>
+</html>
