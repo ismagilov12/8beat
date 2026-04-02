@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформлення | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .checkout-form {
+            border: 3px solid #049CD8;
+            padding: 30px;
+            background-color: rgba(4, 156, 216, 0.05);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px dashed #FBD000;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            color: #E52521;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #049CD8;
+            font-size: 11px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #FBD000;
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            margin-bottom: 8px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #049CD8;
+            box-shadow: 0 0 10px rgba(4, 156, 216, 0.5);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #43B047;
+            cursor: pointer;
+            background-color: rgba(67, 176, 71, 0.05);
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            background-color: rgba(67, 176, 71, 0.15);
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            color: #FBD000;
+            font-weight: bold;
+        }
+
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            color: #049CD8;
+        }
+
+        .sub-form {
+            margin-left: 30px;
+            margin-top: 10px;
+            padding: 15px;
+            border-left: 3px solid #43B047;
+            background-color: rgba(67, 176, 71, 0.03);
+        }
+
+        .order-summary {
+            border: 3px solid #FBD000;
+            padding: 20px;
+            background-color: rgba(251, 208, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-title {
+            color: #FBD000;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .order-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #049CD8;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #049CD8;
+        }
+
+        .order-item:last-child {
+            border-bottom: 3px solid #E52521;
+            padding: 10px 0;
+            color: #E52521;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        .submit-btn:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 46, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .success-modal.show {
+            display: flex;
+        }
+
+        .success-box {
+            border: 5px solid #43B047;
+            background-color: #1a1a2e;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .success-box h2 {
+            color: #43B047;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px #FBD000;
+        }
+
+        .success-box p {
+            color: #FBD000;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+
+        .success-box .number {
+            color: #E52521;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+
+            .checkout-form {
+                padding: 20px;
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">ФІНАЛЬНИЙ БОС: ОПЛАТА</div>
+
+        <div class="checkout-grid">
+            <form class="checkout-form" id="checkout-form" onsubmit="submitOrder(event)">
+                <!-- Contact Section -->
+                <div class="form-section">
+                    <h3>👤 КОНТАКТНІ ДАНІ</h3>
+                    <div class="form-group">
+                        <label for="name">Ім'я і прізвище</label>
+                        <input type="text" id="name" name="name" placeholder="Іван Петренко" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+380..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="player@8beat.ua" required>
+                    </div>
+                </div>
+
+                <!-- Delivery Section -->
+                <div class="form-section">
+                    <h3>📦 ДОСТАВКА</h3>
+                    <div class="form-group">
+                        <label>Спосіб доставки</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="nova-poshta" name="delivery" value="nova-poshta" checked>
+                                <label for="nova-poshta">Нова Пошта</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="ukrposhta" name="delivery" value="ukrposhta">
+                                <label for="ukrposhta">УкрПошта</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="pickup" name="delivery" value="pickup">
+                                <label for="pickup">Самовивіз Киї́в</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-form" id="nova-poshta-form">
+                        <div class="form-group">
+                            <label for="city">Місто</label>
+                            <input type="text" id="city" name="city" placeholder="Київ">
+                        </div>
+                        <div class="form-group">
+                            <label for="branch">Номер відділення</label>
+                            <input type="text" id="branch" name="branch" placeholder="№1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div class="form-section">
+                    <h3>💳 ОПЛАТА</h3>
+                    <div class="form-group">
+                        <label>Метод оплати</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="liqpay" name="payment" value="liqpay" checked>
+                                <label for="liqpay">LiqPay</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="wayforpay" name="payment" value="wayforpay">
+                                <label for="wayforpay">WayForPay</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="cash" name="payment" value="cash">
+                                <label for="cash">Накладений платіж</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">ЗАВЕРШИТИ ЗАМОВЛЕННЯ</button>
+            </form>
+
+            <div class="order-summary">
+                <div class="summary-title">ЗАМОВЛЕННЯ</div>
+                <div id="summary-items"></div>
+                <div class="order-item">
+                    <span>СУМА:</span>
+                    <span id="summary-total">0₴</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="success-modal">
+        <div class="success-box">
+            <h2>ЗАМОВЛЕННЯ ОФОРМЛЕНО!</h2>
+            <p>GG WP! 🎉</p>
+            <p>Номер замовлення:</p>
+            <p class="number" id="order-number">#8BEAT00001</p>
+            <p>Спасибі за закупку! Ми перевіримо та надішлемо посилку протягом 2-3 днів. 📦</p>
+            <button class="submit-btn" style="margin-top: 20px; width: auto;" onclick="window.location.href='shop.html'">
+                НАЗАД ДО КРАМНИЦІ
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        function renderOrderSummary() {
+            const cart = cartManager.getCart();
+            const summaryItems = document.getElementById('summary-items');
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            const delivery = subtotal >= 1000 ? 0 : 70;
+            const discount = parseFloat(sessionStorage.getItem('promo-discount')) || 0;
+            const total = subtotal + delivery - discount;
+
+            summaryItems.innerHTML = cart.map(item => `
+                <div class="order-item">
+                    <span>${item.name} ×${item.quantity || 1}</span>
+                    <span>${item.price * (item.quantity || 1)}₴</span>
+                </div>
+            `).join('');
+
+            summaryItems.innerHTML += `
+                <div class="order-item">
+                    <span>Доставка:</span>
+                    <span>${delivery}₴</span>
+                </div>
+            `;
+
+            if (discount > 0) {
+                summaryItems.innerHTML += `
+                    <div class="order-item">
+                        <span>Знижка:</span>
+                        <span>-${discount}₴</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('summary-total').textContent = total + '₴';
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                delivery: document.querySelector('input[name="delivery"]:checked').value,
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                city: document.getElementById('city').value,
+                branch: document.getElementById('branch').value,
+            };
+
+            // Generate order number
+            const orderNumber = '#8BEAT' + Math.random().toString().slice(2, 8).padStart(6, '0');
+            document.getElementById('order-number').textContent = orderNumber;
+
+            // Create confetti
+            createConfetti();
+
+            // Show success modal
+            setTimeout(() => {
+                document.getElementById('success-modal').classList.add('show');
+            }, 500);
+
+            // Clear cart and session
+            cartManager.saveCart([]);
+            sessionStorage.removeItem('promo-discount');
+            sessionStorage.removeItem('promo-code');
+        }
+
+        function createConfetti() {
+            const colors = ['#E52521', '#049CD8', '#FBD000', '#43B047'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-10px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `fall ${2 + Math.random() * 1}s linear forwards`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        renderOrderSummary();
+    </script>
+</body>
+</html>
