@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cart-items {
+            border: 3px solid #049CD8;
+            padding: 20px;
+            background-color: rgba(4, 156, 216, 0.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #E52521;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 80px;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #43B047;
+            margin-bottom: 15px;
+            background-color: rgba(67, 176, 71, 0.05);
+        }
+
+        .item-image {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #FBD000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background-color: #049CD8;
+        }
+
+        .item-details h3 {
+            color: #E52521;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .item-details p {
+            color: #049CD8;
+            font-size: 12px;
+            margin: 3px 0;
+        }
+
+        .item-price {
+            color: #FBD000;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .item-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .qty-control {
+            display: flex;
+            border: 2px solid #FBD000;
+            background-color: rgba(251, 208, 0, 0.1);
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: #049CD8;
+            color: #1a1a2e;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .qty-btn:hover {
+            background-color: #FBD000;
+        }
+
+        .qty-display {
+            width: 40px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a1a2e;
+        }
+
+        .remove-btn {
+            padding: 8px 12px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 2px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        .cart-summary {
+            border: 3px solid #FBD000;
+            padding: 20px;
+            background-color: rgba(251, 208, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-title {
+            color: #FBD000;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #049CD8;
+            color: #049CD8;
+            font-size: 12px;
+        }
+
+        .summary-row.total {
+            border-bottom: 3px solid #E52521;
+            color: #E52521;
+            font-size: 14px;
+            font-weight: bold;
+            padding-top: 10px;
+        }
+
+        .promo-section {
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 2px dashed #43B047;
+        }
+
+        .promo-label {
+            color: #43B047;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .promo-input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #43B047;
+            background-color: #1a1a2e;
+            color: #43B047;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+
+        .promo-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #43B047;
+            color: #1a1a2e;
+            border: 2px solid #43B047;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .promo-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+            color: #1a1a2e;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .checkout-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        .checkout-btn:disabled {
+            background-color: #666;
+            border-color: #666;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .item-image {
+                width: 80px;
+                height: 80px;
+                font-size: 30px;
+            }
+
+            .item-price {
+                grid-column: 2;
+                text-align: left;
+            }
+
+            .cart-summary {
+                position: static;
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">ІНВЕНТАР</div>
+
+        <div id="cart-empty" class="empty-state" style="display: none;">
+            <div class="empty-state-text">Кошик порожній!</div>
+            <div class="empty-state-text">Час фармити лут! 🎮</div>
+            <a href="shop.html" style="color: #049CD8; text-decoration: none;">← Назад до крамниці</a>
+        </div>
+
+        <div id="cart-filled">
+            <div class="cart-content">
+                <div class="cart-items" id="items-list">
+                    <!-- Items rendered by JS -->
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-title">ПІДСУМОК</div>
+
+                    <div class="summary-row">
+                        <span>Товари:</span>
+                        <span id="subtotal">0₴</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Доставка:</span>
+                        <span id="delivery-cost">0₴</span>
+                    </div>
+
+                    <div id="discount-row" class="summary-row" style="display: none;">
+                        <span>Знижка:</span>
+                        <span id="discount-amount">-0₴</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>РАЗОМ:</span>
+                        <span id="total-price">0₴</span>
+                    </div>
+
+                    <div class="promo-section">
+                        <div class="promo-label">ПРОМОКОД</div>
+                        <input type="text" id="promo-input" class="promo-input" placeholder="Введіть код">
+                        <button class="promo-btn" onclick="applyPromo()">ЗАСТОСУВАТИ</button>
+                    </div>
+
+                    <button class="checkout-btn" onclick="goToCheckout()">
+                        ОФОРМИТИ ЗАМОВЛЕННЯ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        function renderCart() {
+            const cart = cartManager.getCart();
+            const itemsList = document.getElementById('items-list');
+            const emptyState = document.getElementById('cart-empty');
+            const cartFilled = document.getElementById('cart-filled');
+
+            if (!cart || cart.length === 0) {
+                itemsList.innerHTML = '';
+                emptyState.style.display = 'block';
+                cartFilled.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            cartFilled.style.display = 'block';
+
+            itemsList.innerHTML = cart.map((item, idx) => `
+                <div class="cart-item">
+                    <div class="item-image">${item.icon || '👕'}</div>
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p>Розмір: ${item.size || 'M'}</p>
+                        <p>Колір: ${item.color || 'Чорний'}</p>
+                        <p class="item-price">${item.price}₴</p>
+                        <div class="item-controls">
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="updateQty(${idx}, -1)">-</button>
+                                <div class="qty-display" id="qty-${idx}">${item.quantity || 1}</div>
+                                <button class="qty-btn" onclick="updateQty(${idx}, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem(${idx})">ВИДАЛИТИ</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updateSummary();
+        }
+
+        function updateQty(idx, change) {
+            const cart = cartManager.getCart();
+            if (cart[idx]) {
+                cart[idx].quantity = (cart[idx].quantity || 1) + change;
+                if (cart[idx].quantity < 1) cart[idx].quantity = 1;
+                cartManager.saveCart(cart);
+                renderCart();
+            }
+        }
+
+        function removeItem(idx) {
+            const cart = cartManager.getCart();
+            cart.splice(idx, 1);
+            cartManager.saveCart(cart);
+            renderCart();
+        }
+
+        function updateSummary() {
+            const cart = cartManager.getCart();
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            const delivery = subtotal >= 1000 ? 0 : 70;
+            let total = subtotal + delivery;
+
+            const discount = parseFloat(sessionStorage.getItem('promo-discount')) || 0;
+            total -= discount;
+
+            document.getElementById('subtotal').textContent = subtotal + '₴';
+            document.getElementById('delivery-cost').textContent = delivery + '₴';
+            document.getElementById('total-price').textContent = total + '₴';
+
+            if (discount > 0) {
+                document.getElementById('discount-row').style.display = 'flex';
+                document.getElementById('discount-amount').textContent = '-' + discount + '₴';
+            }
+
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function applyPromo() {
+            const code = document.getElementById('promo-input').value.trim().toUpperCase();
+            const promos = {
+                'RETRO': 100,
+                '8BIT': 150,
+                'ARCADE': 200,
+                'PIXEL': 50
+            };
+
+            if (promos[code]) {
+                sessionStorage.setItem('promo-discount', promos[code]);
+                sessionStorage.setItem('promo-code', code);
+                alert(`✓ Промокод "${code}" застосовано! Знижка: ${promos[code]}₴`);
+                updateSummary();
+            } else {
+                alert('✗ Невідомий промокод');
+            }
+        }
+
+        function goToCheckout() {
+            const cart = cartManager.getCart();
+            if (cart.length > 0) {
+                window.location.href = 'checkout.html';
+            }
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
