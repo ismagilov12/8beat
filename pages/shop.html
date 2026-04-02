@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="8BEAT Крамниця — каталог кастомізованих футболок та худі з 8-бітним дизайном.">
+    <title>8BEAT — Крамниця</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🎮</text></svg>">
+    <style>
+        /* === SHOP-SPECIFIC STYLES === */
+        .shop-hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f3460 50%, var(--dark) 100%);
+            text-align: center;
+            padding: 2.5rem 1rem 2rem;
+            border-bottom: 4px solid var(--brick);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+        }
+
+        .shop-hero .level-badge { margin-bottom: 1rem; }
+
+        .shop-hero h1 {
+            font-family: var(--pixel-font);
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--yellow);
+            text-shadow: 3px 3px 0 #000;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-hero p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* SEARCH */
+        .search-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 0;
+            text-align: center;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.8rem 1.2rem;
+            border: 3px solid var(--brown);
+            background: var(--dark);
+            color: var(--yellow);
+            font-family: var(--pixel-font);
+            font-size: 0.6rem;
+            box-shadow: 3px 3px 0 0 #000;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--yellow);
+            box-shadow: 0 0 12px rgba(251,208,0,0.3);
+        }
+
+        .search-bar::placeholder { color: var(--text-dim); }
+
+        /* LAYOUT */
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        /* FILTERS */
+        .filters {
+            background: var(--dark);
+            border: 3px solid var(--brown);
+            padding: 1.2rem;
+            box-shadow: 4px 4px 0 0 #000;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px dashed rgba(255,255,255,0.1);
+        }
+
+        .filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .filter-title {
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            color: var(--blue);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .filter-option:hover { transform: translateX(4px); }
+
+        .filter-option input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--yellow);
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .price-range {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .price-input {
+            padding: 0.5rem;
+            border: 2px solid var(--brown);
+            background: var(--darker);
+            color: var(--yellow);
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            width: 100%;
+        }
+
+        .price-input:focus { outline: none; border-color: var(--yellow); }
+
+        .filter-reset {
+            width: 100%;
+            padding: 0.6rem;
+            margin-top: 1rem;
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            background: var(--red);
+            color: #fff;
+            border: 2px solid #000;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 2px 2px 0 0 #000;
+        }
+
+        .filter-reset:hover { transform: translate(1px,1px); box-shadow: 1px 1px 0 0 #000; }
+
+        /* RESULTS INFO */
+        .results-info {
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid rgba(255,255,255,0.05);
+        }
+
+        .results-info strong { color: var(--yellow); }
+
+        /* PRODUCTS */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .shop-card {
+            background: var(--dark);
+            border: 3px solid var(--brown);
+            padding: 1rem;
+            box-shadow: 4px 4px 0 0 #000;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--yellow);
+            box-shadow: 6px 6px 0 0 #000;
+        }
+
+        .shop-card-img {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .shop-card-img .tshirt-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .shop-card-img .tshirt-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 16px);
+            pointer-events: none;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            font-family: var(--pixel-font);
+            font-size: 0.45rem;
+            background: var(--red);
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            border: 2px solid #000;
+            z-index: 2;
+        }
+
+        .card-type-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-family: var(--pixel-font);
+            font-size: 0.4rem;
+            background: var(--purple);
+            color: #fff;
+            padding: 0.2rem 0.4rem;
+            border: 2px solid #000;
+            z-index: 2;
+        }
+
+        .card-coins {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            font-family: var(--pixel-font);
+            font-size: 0.45rem;
+            background: rgba(0,0,0,0.75);
+            color: var(--gold);
+            padding: 0.2rem 0.5rem;
+            z-index: 2;
+        }
+
+        .shop-card-cat {
+            font-family: var(--pixel-font);
+            font-size: 0.45rem;
+            color: var(--blue);
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .shop-card-name {
+            font-family: var(--pixel-font);
+            font-size: 0.7rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            min-height: 2.4em;
+            line-height: 1.4;
+        }
+
+        .shop-card-sizes {
+            display: flex;
+            gap: 0.3rem;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .size-tag {
+            font-family: var(--pixel-font);
+            font-size: 0.4rem;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dim);
+            padding: 0.2rem 0.4rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .shop-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.6rem;
+            border-top: 2px solid rgba(255,255,255,0.08);
+            margin-bottom: 0.8rem;
+        }
+
+        .shop-card-price {
+            font-family: var(--pixel-font);
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .shop-card-rating { color: var(--gold); font-size: 0.8rem; letter-spacing: 1px; }
+
+        .shop-card-btn {
+            width: 100%;
+            padding: 0.7rem;
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            background: var(--blue);
+            color: #fff;
+            border: 3px solid #000;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 0 #000;
+            transition: all 0.15s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .shop-card-btn:hover {
+            background: var(--green);
+            transform: translate(1px,1px);
+            box-shadow: 2px 2px 0 0 #000;
+        }
+
+        .shop-card-btn:active {
+            transform: translate(3px,3px);
+            box-shadow: none;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .empty-state .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+        .empty-state h3 {
+            font-family: var(--pixel-font);
+            font-size: 0.8rem;
+            color: var(--red);
+            margin-bottom: 0.8rem;
+        }
+
+        .empty-state p { color: var(--text-dim); }
+
+        /* MODAL */
+        .product-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .product-modal.active { display: flex; }
+
+        .pm-content {
+            background: var(--dark);
+            border: 4px solid var(--brown);
+            box-shadow: 6px 6px 0 0 #000;
+            padding: 2rem;
+            max-width: 550px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fade-in 0.2s ease;
+        }
+
+        .pm-close {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            width: 36px;
+            height: 36px;
+            background: var(--red);
+            border: 2px solid #000;
+            color: #fff;
+            font-family: var(--pixel-font);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 0 0 #000;
+            transition: all 0.15s;
+        }
+
+        .pm-close:hover { transform: scale(1.1); }
+
+        .pm-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 3px solid rgba(255,255,255,0.1);
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pm-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 16px);
+        }
+
+        .pm-title {
+            font-family: var(--pixel-font);
+            font-size: 1rem;
+            color: var(--yellow);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .pm-cat {
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .pm-desc {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+            background: rgba(4,156,216,0.08);
+            border-left: 3px solid var(--blue);
+        }
+
+        .pm-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pm-spec {
+            background: rgba(67,176,71,0.08);
+            padding: 0.7rem;
+            border: 1px solid var(--green);
+            font-size: 0.75rem;
+            color: var(--green);
+        }
+
+        .pm-spec strong {
+            display: block;
+            font-family: var(--pixel-font);
+            font-size: 0.45rem;
+            color: var(--text-dim);
+            margin-bottom: 0.3rem;
+        }
+
+        .pm-size-select {
+            margin-bottom: 1.5rem;
+        }
+
+        .pm-size-label {
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .pm-sizes {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pm-size-btn {
+            padding: 0.5rem 0.8rem;
+            font-family: var(--pixel-font);
+            font-size: 0.5rem;
+            background: var(--darker);
+            color: var(--text-dim);
+            border: 2px solid var(--brown);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .pm-size-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+        .pm-size-btn.active { background: var(--yellow); color: #000; border-color: var(--yellow); }
+
+        .pm-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .pm-add-btn {
+            flex: 2;
+            padding: 0.9rem;
+            font-family: var(--pixel-font);
+            font-size: 0.6rem;
+            background: var(--green);
+            color: #fff;
+            border: 3px solid #000;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 0 #000;
+            transition: all 0.15s;
+        }
+
+        .pm-add-btn:hover { transform: translate(1px,1px); box-shadow: 2px 2px 0 0 #000; }
+
+        .pm-close-btn {
+            flex: 1;
+            padding: 0.9rem;
+            font-family: var(--pixel-font);
+            font-size: 0.6rem;
+            background: var(--red);
+            color: #fff;
+            border: 3px solid #000;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 0 #000;
+            transition: all 0.15s;
+        }
+
+        .pm-close-btn:hover { transform: translate(1px,1px); box-shadow: 2px 2px 0 0 #000; }
+
+        /* MOBILE FILTER TOGGLE */
+        .filter-toggle-mobile {
+            display: none;
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            font-family: var(--pixel-font);
+            font-size: 0.55rem;
+            background: var(--dark);
+            color: var(--yellow);
+            border: 3px solid var(--brown);
+            cursor: pointer;
+            box-shadow: 3px 3px 0 0 #000;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: static;
+                display: none;
+            }
+
+            .filters.open { display: block; }
+
+            .filter-toggle-mobile { display: block; }
+
+            .shop-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+
+            .pm-specs { grid-template-columns: 1fr; }
+            .pm-actions { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .shop-grid { grid-template-columns: 1fr; }
+            .shop-card-img { height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ПРОМО-АРТЕФАКТИ -->
+    <div id="artifacts-container"></div>
+
+    <!-- HEADER (same as index.html) -->
+    <header class="header">
+        <nav class="nav-bar">
+            <a href="../index.html" class="logo">
+                <span class="logo-coin">🚩</span>
+                <span class="logo-text">8BEAT</span>
+            </a>
+            <div class="nav-links">
+                <a href="shop.html" class="nav-link" style="color:var(--yellow);">🏪 Крамниця</a>
+                <a href="customizer.html" class="nav-link">🎨 Кастомайзер</a>
+                <a href="blog.html" class="nav-link">📜 Блог</a>
+                <a href="about.html" class="nav-link">🏰 Про нас</a>
+            </div>
+            <div class="nav-right">
+                <div class="score-display">
+                    <span class="score-label">СКОР:</span>
+                    <span class="score-value" id="user-score">0000</span>
+                </div>
+                <button class="cart-btn" id="cart-btn">🛒<span class="cart-badge" id="cart-count">0</span></button>
+                <button class="menu-toggle" id="menu-btn">☰</button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="mobile-menu hidden">
+            <a href="shop.html" class="mobile-link">🏪 Крамниця</a>
+            <a href="customizer.html" class="mobile-link">🎨 Кастомайзер</a>
+            <a href="blog.html" class="mobile-link">📜 Блог</a>
+            <a href="about.html" class="mobile-link">🏰 Про нас</a>
+            <a href="faq.html" class="mobile-link">❓ FAQ</a>
+            <a href="contact.html" class="mobile-link">📮 Контакти</a>
+        </div>
+    </header>
+
+    <!-- SHOP HERO -->
+    <section class="shop-hero">
+        <div class="level-badge">РІВЕНЬ 1</div>
+        <h1>🏪 КРАМНИЦЯ</h1>
+        <p>Обирай своє екіпірування! Кожна футболка — новий скін для твого персонажа.</p>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-section">
+        <input type="text" class="search-bar" id="search-bar" placeholder="🔍 ПОШУК ЛУТУ...">
+    </div>
+
+    <!-- SHOP LAYOUT -->
+    <div class="shop-layout">
+        <!-- MOBILE FILTER TOGGLE -->
+        <button class="filter-toggle-mobile" id="filter-toggle">⚙️ ФІЛЬТРИ</button>
+
+        <!-- FILTERS SIDEBAR -->
+        <aside class="filters" id="filters-sidebar">
+            <div class="filter-group">
+                <div class="filter-title">🎝 ТИП</div>
+                <label class="filter-option">
+                    <input type="checkbox" value="Футболка" class="type-filter">
+                    <label>Футболка</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="Худі" class="type-filter">
+                    <label>Худі</label>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">🏷️ КАТЕГОРЄЯ</div>
+                <label class="filter-option">
+                    <input type="checkbox" value="Геймер" class="cat-filter">
+                    <label>Геймер</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="Ретро" class="cat-filter">
+                    <label>Ретро</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="Абстракт" class="cat-filter">
+                    <label>Абстракт</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="Мінімалізм" class="cat-filter">
+                    <label>Мінімалізм</label>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">💰 ЦІНА (₴)</div>
+                <div class="price-range">
+                    <input type="number" class="price-input" id="price-min" placeholder="ВІД" min="0" value="0">
+                    <input type="number" class="price-input" id="price-max" placeholder="ДО" min="0" value="999">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">📐 РОЗМІР</div>
+                <label class="filter-option">
+                    <input type="checkbox" value="S" class="size-filter">
+                    <label>S</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="M" class="size-filter">
+                    <label>M</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="L" class="size-filter">
+                    <label>L</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="XL" class="size-filter">
+                    <label>XL</label>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" value="XXL" class="size-filter">
+                    <label>XXL</label>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">📊 СОРТУВАННЯ</div>
+                <label class="filter-option">
+                    <input type="radio" name="sort" value="popular" class="sort-filter" checked>
+                    <label>Популярні</label>
+                </label>
+                <label class="filter-option">
+                    <input type="radio" name="sort" value="price-low" class="sort-filter">
+                    <label>Дешеві ↑</label>
+                </label>
+                <label class="filter-option">
+                    <input type="radio" name="sort" value="price-high" class="sort-filter">
+                    <label>Дорогі ↓</label>
+                </label>
+                <label class="filter-option">
+                    <input type="radio" name="sort" value="rating" class="sort-filter">
+                    <label>За рейтингом</label>
+                </label>
+            </div>
+
+            <button class="filter-reset" id="reset-filters">🔄 СКИНУТИ ФІЛЬТРИ</button>
+        </aside>
+
+        <!-- PRODUCTS -->
+        <div>
+            <div class="results-info" id="results-info">Знайдено: <strong>12</strong> предметів</div>
+            <div class="shop-grid" id="shop-grid"></div>
+        </div>
+    </div>
+
+    <!-- PRODUCT MODAL -->
+    <div class="product-modal" id="product-modal">
+        <div class="pm-content">
+            <button class="pm-close" id="pm-close">&times;</button>
+            <div class="pm-image" id="pm-image"></div>
+            <h2 class="pm-title" id="pm-title"></h2>
+            <div class="pm-cat" id="pm-cat"></div>
+            <p class="pm-desc" id="pm-desc"></p>
+            <div class="pm-specs" id="pm-specs"></div>
+            <div class="pm-size-select">
+                <span class="pm-size-label">ОБЕРИ РОЗМІЈ:</span>
+                <div class="pm-sizes" id="pm-sizes"></div>
+            </div>
+            <div class="pm-actions">
+                <button class="pm-add-btn" id="pm-add">🛒 В КОШИК</button>
+                <button class="pm-close-btn" id="pm-close-btn">ЗАКРИТИ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER (same as index.html) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-text">8BEAT</span>
+                <p class="footer-tagline">Твій дизайн — наша ера. © 2024-2026</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>НАВІГАЦІЯ</h4>
+                    <a href="shop.html">🏪 Крамниця</a>
+                    <a href="customizer.html">🎨 Кастомайзер</a>
+                    <a href="blog.html">📜 Блог</a>
+                </div>
+                <div class="footer-col">
+                    <h4>ІНФО</h4>
+                    <a href="about.html">🏰 Про нас</a>
+                    <a href="faq.html">❓ FAQ</a>
+                    <a href="contact.html">📮 Контакти</a>
+                </div>
+                <div class="footer-col">
+                    <h4>ЗАМОВЛЕННЯ</h4>
+                    <a href="cart.html">🛒 Кошик</a>
+                    <a href="checkout.html">💳 Оформити</a>
+                    <a href="account.html">👤Акаунт</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>🎮 GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮</p>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Промо-модал -->
+    <div id="promo-modal" class="modal hidden">
+        <div class="modal-content pixel-border">
+            <div class="modal-icon" id="modal-icon">🚩</div>
+            <h3 id="modal-title">АРТЕФАКТ ЗНАЙДЕНО!</h3>
+            <p id="modal-text">Ти зібрав монетку!</p>
+            <div id="modal-promo" class="modal-promo hidden">
+                <span>Промокод:</span>
+                <code id="modal-code"></code>
+            </div>
+            <button class="btn btn-green modal-close" id="modal-close">ДАЛІ →</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+    <script>
+        // =============================================
+        // 8BEAT SHOP — Full Catalog Logic
+        // =============================================
+
+        const DESCRIPTIONS = {
+            1: 'Класичне піксельне серце — символ додаткового лайфу. Премійна бавовна, DTG-друк 300 DPI. Ідеально для тих, хто пам\'ятає ціну одного лайфу.',
+            2: 'Бластер із золотої ери аркад. Ретро-зброя на сучасній футболці. Принт, що витримує 50+ прань.',
+            3: 'Легендарний грибочок, що дає +1 лайф. Зеленого кольору, як і має бути. Культовий символ 8-біт ери.',
+            4: 'Абстрактний піксельний воїн з мечем із зірок. Космічна палітра на темному фоні. Для тих, хто грає в хардкорі.',
+            5: 'Вогняний кулак на преміальному худі. Флісова підкладка, ідеальна для прохолодної погоди та гарячих батлів.',
+            6: 'Привид-переслідувач із класичного лабіринту. Неонова палітра на темному фоні. Must-have для ретро-геймерів.',
+            7: 'Темний данж, факел у руці, монстри попереду. Піксельна графіка в стилі rogue-like. Для справжніх хардкорщиків.',
+            8: 'Мінімалістичний піксельний дизайн — коли менше = більше. Ідеально на кожен день. Ніякого пафосу, чисті пікселі.',
+            9: 'Епічний бос-файт на преміальному худі. Деталізований піксельний принт фінального боса. Для тих, хто не скіпає катсцени.',
+            10: 'Нескінченний ранер в абстрактному стилі. Динамічний принт з ефектом руху. Футболка для тих, хто ніколи не зупиняється.',
+            11: 'Класичний інвейдер із космосу. Олдскульний дизайн, що ніколи не вийде з моди. OG-стиль для OG-геймерів.',
+            12: 'Легендарний код Контра на преміальному худі. 30 лайфів = 30 причин купити. Тепло, стильно, ностальгічно.'
+        };
+
+        const TSHIRT_EMOJIS = ['👕','👾','🕹️','🎮','🏆','⚡','🔥','💀','🚀','🌟','🛡️','💣'];
+
+        let allProducts = [];
+        let selectedModalSize = 'M';
+        let currentModalProduct = null;
+
+        // INIT
+        function initShop() {
+            allProducts = window.products || [];
+            applyFilters();
+        }
+
+        // RENDER
+        function renderProducts(products) {
+            const grid = document.getElementById('shop-grid');
+            const info = document.getElementById('results-info');
+            info.innerHTML = `Знайдено: <strong>${products.length}</strong> предметів`;
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">💀</div>
+                        <h3>GAME OVER</h3>
+                        <p>Жоден предмет не знайдено. Спробуй змінити фільтри!</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = products.map((p, i) => {
+                const emoji = TSHIRT_EMOJIS[i % TSHIRT_EMOJIS.length];
+                const stars = '★'.repeat(p.rating) + '☆'.repeat(5 - p.rating);
+                const badgeHtml = p.badge ? `<div class="card-badge">${p.badge}</div>` : '';
+                const typeLabel = p.type === 'Худі' ? 'ХУДІ' : '';
+                const typeBadge = typeLabel ? `<div class="card-type-badge">${typeLabel}</div>` : '';
+                const sizesHtml = (p.sizes || []).map(s => `<span class="size-tag">${s}</span>`).join('');
+
+                return `
+                    <div class="shop-card" data-id="${p.id}">
+                        <div class="shop-card-img">
+                            <div class="tshirt-preview" style="background:linear-gradient(135deg,${p.colors[0]} 30%,${p.colors[1]} 70%)">
+                                ${emoji}
+                            </div>
+                            ${badgeHtml}
+                            ${typeBadge}
+                            <div class="card-coins">${p.price} 🪙</div>
+                        </div>
+                        <div class="shop-card-cat">${p.category}</div>
+                        <div class="shop-card-name">${p.name}</div>
+                        <div class="shop-card-sizes">${sizesHtml}</div>
+                        <div class="shop-card-bottom">
+                            <span class="shop-card-price">${p.price}₴</span>
+                            <span class="shop-card-rating">${stars}</span>
+                        </div>
+                        <button class="shop-card-btn" data-id="${p.id}">🛒 В КОШИК</button>
+                    </div>`;
+            }).join('');
+
+            // Event listeners
+            grid.querySelectorAll('.shop-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.shop-card-btn')) return;
+                    const id = parseInt(card.dataset.id);
+                    openModal(allProducts.find(p => p.id === id));
+                });
+            });
+
+            grid.querySelectorAll('.shop-card-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    const product = allProducts.find(p => p.id === id);
+                    addToCart(product, product.sizes[1] || 'M');
+                });
+            });
+        }
+
+        // FILTERS
+        function applyFilters() {
+            const types = [...document.querySelectorAll('.type-filter:checked')].map(e => e.value);
+            const cats = [...document.querySelectorAll('.cat-filter:checked')].map(e => e.value);
+            const sizes = [...document.querySelectorAll('.size-filter:checked')].map(e => e.value);
+            const minP = parseInt(document.getElementById('price-min').value) || 0;
+            const maxP = parseInt(document.getElementById('price-max').value) || 9999;
+            const sort = document.querySelector('.sort-filter:checked')?.value || 'popular';
+            const search = document.getElementById('search-bar').value.toLowerCase().trim();
+
+            let filtered = allProducts.filter(p => {
+                if (types.length && !types.includes(p.type)) return false;
+                if (cats.length && !cats.includes(p.category)) return false;
+                if (sizes.length && !p.sizes.some(s => sizes.includes(s))) return false;
+                if (p.price < minP || p.price > maxP) return false;
+                if (search && !p.name.toLowerCase().includes(search) && !(DESCRIPTIONS[p.id] || '').toLowerCase().includes(search)) return false;
+                return true;
+            });
+
+            // Sort
+            switch (sort) {
+                case 'price-low': filtered.sort((a, b) => a.price - b.price); break;
+                case 'price-high': filtered.sort((a, b) => b.price - a.price); break;
+                case 'rating': filtered.sort((a, b) => b.rating - a.rating); break;
+                default: filtered.sort((a, b) => b.rating - a.rating); // popular = by rating
+            }
+
+            renderProducts(filtered);
+        }
+
+        // CART
+        function addToCart(product, size) {
+            if (window.cartManager) {
+                window.cartManager.addItem({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    size: size,
+                    quantity: 1
+                });
+            }
+            if (typeof showToast === 'function') {
+                showToast(`🛒 ${product.name} (${size}) додано в кошик!`);
+            }
+            if (typeof addScore === 'function') {
+                addScore(10);
+            }
+        }
+
+        // MODAL
+        function openModal(product) {
+            if (!product) return;
+            currentModalProduct = product;
+            selectedModalSize = product.sizes[1] || product.sizes[0] || 'M';
+
+            const idx = allProducts.indexOf(product);
+            const emoji = TSHIRT_EMOJIS[idx % TSHIRT_EMOJIS.length];
+
+            document.getElementById('pm-image').innerHTML = `<div class="tshirt-preview" style="background:linear-gradient(135deg,${product.colors[0]} 30%,${product.colors[1]} 70%);width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;">${emoji}</div>`;
+            document.getElementById('pm-title').textContent = product.name;
+            document.getElementById('pm-cat').textContent = `${product.category} · ${product.type}`;
+            document.getElementById('pm-desc').textContent = DESCRIPTIONS[product.id] || 'Легендарний предмет екіпіровки! 100% бавовна, DTG-друк.';
+
+            document.getElementById('pm-specs').innerHTML = `
+                <div class="pm-spec"><strong>ТИП</strong>${product.type}</div>
+                <div class="pm-spec"><strong>МАТЕРІАЛ</strong>100% Бавовна</div>
+                <div class="pm-spec"><strong>ДРУК</strong>DTG 300 DPI</div>
+                <div class="pm-spec"><strong>РЕЙТИНГ</strong>${'★'.repeat(product.rating)}${'☆'.repeat(5-product.rating)}</div>
+            `;
+
+            document.getElementById('pm-sizes').innerHTML = product.sizes.map(s =>
+                `<button class="pm-size-btn ${s === selectedModalSize ? 'active' : ''}" data-size="${s}">${s}</button>`
+            ).join('');
+
+            document.getElementById('pm-sizes').querySelectorAll('.pm-size-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedModalSize = btn.dataset.size;
+                    document.querySelectorAll('.pm-size-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            document.getElementById('product-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            currentModalProduct = null;
+        }
+
+        // EVENT LISTENERS
+        document.querySelectorAll('.type-filter, .cat-filter, .size-filter, .sort-filter').forEach(el => {
+            el.addEventListener('change', applyFilters);
+        });
+
+        document.getElementById('price-min').addEventListener('input', applyFilters);
+        document.getElementById('price-max').addEventListener('input', applyFilters);
+        document.getElementById('search-bar').addEventListener('input', applyFilters);
+
+        document.getElementById('reset-filters').addEventListener('click', () => {
+            document.querySelectorAll('.type-filter, .cat-filter, .size-filter').forEach(el => el.checked = false);
+            document.querySelector('.sort-filter[value="popular"]').checked = true;
+            document.getElementById('price-min').value = '0';
+            document.getElementById('price-max').value = '999';
+            document.getElementById('search-bar').value = '';
+            applyFilters();
+        });
+
+        document.getElementById('filter-toggle').addEventListener('click', () => {
+            document.getElementById('filters-sidebar').classList.toggle('open');
+        });
+
+        document.getElementById('pm-close').addEventListener('click', closeModal);
+        document.getElementById('pm-close-btn').addEventListener('click', closeModal);
+        document.getElementById('pm-add').addEventListener('click', () => {
+            if (currentModalProduct) {
+                addToCart(currentModalProduct, selectedModalSize);
+                closeModal();
+            }
+        });
+
+        document.getElementById('product-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('product-modal')) closeModal();
+        });
+
+        // Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // INIT
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initShop);
+        } else {
+            initShop();
+        }
+    </script>
+</body>
+</html>
