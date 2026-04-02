@@ -1,6 +1,9 @@
 {
   "name": "8beat",
   "version": "1.0.0",
-  "description": "8BEAT platform",
-  "private": true
+  "description": "8BEAT — платформа з кастомайзером футболок",
+  "private": true,
+  "dependencies": {
+    "@vercel/kv": "^2.0.0"
+  }
 }
