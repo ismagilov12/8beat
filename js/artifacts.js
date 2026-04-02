@@ -9,7 +9,7 @@ class ArtifactSystem {
         this.container = document.getElementById('artifacts-container');
         this.artifacts = [];
         this.config = {
-            coin: { emoji: '🪙', points: 10, spawnInterval: 8000, lifetime: 12000, key: '8beat_coins' },
+            coin: { emoji: '💰', points: 10, spawnInterval: 8000, lifetime: 12000, key: '8beat_coins' },
             star: { emoji: '⭐', points: 50, spawnInterval: 60000, lifetime: 15000, key: '8beat_stars' },
             mushroom: { emoji: '🍄', points: 30, spawnInterval: 45000, lifetime: 20000, key: '8beat_mushrooms' }
         };
@@ -95,7 +95,7 @@ class ArtifactSystem {
 
         // Тост
         const messages = {
-            coin: `🪙 Монетка зібрана! +${cfg.points} балів`,
+            coin: `💰 Монетка зібрана! +${cfg.points} балів`,
             star: `⭐ ЗІРОЧКА! Рідкісний дроп! +${cfg.points} балів`,
             mushroom: `🍄 ГРИБОЧОК 1UP! +${cfg.points} балів`
         };
@@ -148,7 +148,7 @@ class ArtifactSystem {
                     localStorage.setItem(storageKey, promo.code);
                     setTimeout(() => {
                         showPromoModal(
-                            type === 'coin' ? '🪙' : type === 'star' ? '⭐' : '🍄',
+                            type === 'coin' ? '💰' : type === 'star' ? '⭐' : '🍄',
                             'ПРОМОКОД РОЗБЛОКОВАНО!',
                             `Ти зібрав ${count} ${type === 'coin' ? 'монеток' : type === 'star' ? 'зірочки' : 'грибочок'}!`,
                             promo.code,
