@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            border: 3px solid #049CD8;
+            padding: 30px;
+            background-color: rgba(4, 156, 216, 0.05);
+        }
+
+        .form-title {
+            color: #E52521;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #049CD8;
+            font-size: 11px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #FBD000;
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            margin-bottom: 8px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #049CD8;
+            box-shadow: 0 0 10px rgba(4, 156, 216, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            border: 3px solid #E52521;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background-color: #FBD000;
+            border-color: #FBD000;
+        }
+
+        .contact-info {
+            border: 3px solid #FBD000;
+            padding: 30px;
+            background-color: rgba(251, 208, 0, 0.05);
+        }
+
+        .info-title {
+            color: #FBD000;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .info-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #049CD8;
+        }
+
+        .info-block:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #E52521;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            color: #049CD8;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .info-content a {
+            color: #FBD000;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .info-content a:hover {
+            color: #E52521;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-btn {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 2px solid #FBD000;
+            background-color: rgba(251, 208, 0, 0.1);
+            color: #FBD000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background-color: #FBD000;
+            color: #1a1a2e;
+        }
+
+        .map-container {
+            border: 3px solid #43B047;
+            padding: 30px;
+            background-color: rgba(67, 176, 71, 0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .map-title {
+            color: #43B047;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #FBD000;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            border: 3px dashed #43B047;
+            background: linear-gradient(135deg, rgba(67, 176, 71, 0.1), rgba(4, 156, 216, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .response-message {
+            border: 3px solid #43B047;
+            padding: 20px;
+            background-color: rgba(67, 176, 71, 0.1);
+            color: #43B047;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .response-message.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+
+            .map-placeholder {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">ЗВ'ЯЗОК З ПІДТРИМКОЮ</div>
+
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2 class="form-title">НАДІШЛІТЬ ПОВІДОМЛЕННЯ</h2>
+                <form id="contact-form" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <label for="name">Ім'я</label>
+                        <input type="text" id="name" name="name" placeholder="Ваше ім'я" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="ваш@email.ua" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="topic">Тема</label>
+                        <select id="topic" name="topic" required>
+                            <option value="">Виберіть тему...</option>
+                            <option value="support">Підтримка</option>
+                            <option value="complaint">Скарга</option>
+                            <option value="partnership">Партнерство</option>
+                            <option value="feedback">Відгук</option>
+                            <option value="other">Інше</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Повідомлення</label>
+                        <textarea id="message" name="message" placeholder="Напишіть вашу повідомлення..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">НАДІСЛАТИ ПОВІДОМЛЕННЯ</button>
+                </form>
+                <div id="response-msg" class="response-message"></div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2 class="info-title">КОНТАКТНА ІНФОРМАЦІЯ</h2>
+
+                <div class="info-block">
+                    <div class="info-label">📧 EMAIL</div>
+                    <div class="info-content">
+                        <a href="mailto:support@8beat.ua">support@8beat.ua</a><br>
+                        <a href="mailto:info@8beat.ua">info@8beat.ua</a>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">📞 ТЕЛЕФОН</div>
+                    <div class="info-content">
+                        <a href="tel:+380951234567">+38 (095) 123-45-67</a><br>
+                        <a href="tel:+380661234567">+38 (066) 123-45-67</a>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">📍 АДРЕСА</div>
+                    <div class="info-content">
+                        8BEAT Guild HQ<br>
+                        вул. Гейммерська, 8<br>
+                        Київ, Україна 03150<br>
+                        (Вхід у квартирі з іконою 🎮)
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">🕐 ГРАФІК РОБОТИ</div>
+                    <div class="info-content">
+                        Пн-Пт: 10:00 - 18:00<br>
+                        Сб: 12:00 - 16:00<br>
+                        Нд: Відпочинок гравців
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">🌐 МИ В МЕРЕЖІ</div>
+                    <div class="social-links">
+                        <a href="#" class="social-btn" title="Instagram">📱</a>
+                        <a href="#" class="social-btn" title="TikTok">🎬</a>
+                        <a href="#" class="social-btn" title="Discord">💬</a>
+                        <a href="#" class="social-btn" title="Twitter">𝕏</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-container">
+            <h2 class="map-title">🗺️ ЗНАЙТИ НАС НА КАРТІ</h2>
+            <div class="map-placeholder">
+                📍 КАРТА (Інтеграція з Google Maps coming soon!)
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        function submitContactForm(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const topic = document.getElementById('topic').value;
+            const message = document.getElementById('message').value;
+
+            // Simulate form submission
+            console.log('Contact form submitted:', { name, email, topic, message });
+
+            // Show success message
+            const responseMsg = document.getElementById('response-msg');
+            responseMsg.textContent = '✓ Спасибі! Ваше повідомлення отримано. Ми відповідимо вам найскоріше! 🎮';
+            responseMsg.classList.add('show');
+
+            // Reset form
+            document.getElementById('contact-form').reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                responseMsg.classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
