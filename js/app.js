@@ -78,6 +78,7 @@ function setScore(val) {
 function addScore(points) {
     const newScore = getScore() + points;
     setScore(newScore);
+
     // Перевірка на промокоди
     if (newScore >= 500 && !localStorage.getItem('8beat_promo_500')) {
         localStorage.setItem('8beat_promo_500', 'ARCADE10');
@@ -113,6 +114,7 @@ function updateScoreDisplay() {
 function showToast(message, duration = 3000) {
     const container = document.getElementById('toast-container');
     if (!container) return;
+
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
