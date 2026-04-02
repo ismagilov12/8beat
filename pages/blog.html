@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог | 8BEAT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #FBD000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            color: #E52521;
+            text-shadow: 3px 3px 0px #049CD8;
+            border: 3px solid #E52521;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(5, 76, 216, 0.1), rgba(69, 176, 71, 0.1));
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .post-card {
+            border: 3px solid #FBD000;
+            padding: 0;
+            background-color: rgba(251, 208, 0, 0.03);
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0px rgba(4, 156, 216, 0.3);
+            border-color: #049CD8;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #049CD8, #43B047);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border-bottom: 3px solid #FBD000;
+        }
+
+        .post-content {
+            padding: 20px;
+        }
+
+        .post-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #E52521;
+            color: #1a1a2e;
+            font-size: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border: 2px solid #E52521;
+        }
+
+        .post-title {
+            color: #E52521;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #049CD8;
+        }
+
+        .post-excerpt {
+            color: #049CD8;
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px dashed #049CD8;
+            font-size: 10px;
+            color: #43B047;
+        }
+
+        .read-more {
+            color: #FBD000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .read-more:hover {
+            color: #E52521;
+        }
+
+        .post-date {
+            color: #049CD8;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: 2px solid #049CD8;
+            background-color: transparent;
+            color: #049CD8;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #049CD8;
+            color: #1a1a2e;
+        }
+
+        .filter-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #1a1a2e;
+            border: 5px solid #FBD000;
+            padding: 40px;
+            max-width: 600px;
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 30px;
+            cursor: pointer;
+            color: #E52521;
+            background: none;
+            border: none;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .modal-close:hover {
+            color: #FBD000;
+        }
+
+        .modal-title {
+            color: #E52521;
+            font-size: 18px;
+            margin: 20px 0;
+            text-shadow: 2px 2px 0px #049CD8;
+            clear: both;
+        }
+
+        .modal-date {
+            color: #049CD8;
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body {
+            color: #FBD000;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .level-header {
+                font-size: 16px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">8BEAT</span>
+                <span class="logo-coin">🪙</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+            </nav>
+            <div class="header-right">
+                <div class="score-display">РАХУНОК: <span id="score">0</span></div>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="level-header">БЛОГ АРКАДИ</div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterPosts('all')">ВСІ</button>
+            <button class="filter-btn" onclick="filterPosts('pixel-art')">PIXEL ART</button>
+            <button class="filter-btn" onclick="filterPosts('gaming')">ІГРИ</button>
+            <button class="filter-btn" onclick="filterPosts('fashion')">МОДА</button>
+            <button class="filter-btn" onclick="filterPosts('tips')">ПОРАДИ</button>
+        </div>
+
+        <div class="posts-grid" id="posts-grid">
+            <!-- Posts will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>НАВІГАЦІЯ</h4>
+                <a href="shop.html">Крамниця</a>
+                <a href="customizer.html">Кастомайзер</a>
+                <a href="blog.html">Блог</a>
+                <a href="about.html">Про нас</a>
+                <a href="faq.html">ЧАстI Питання</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-section">
+                <h4>ПРАВНІ</h4>
+                <a href="#">Політика приватності</a>
+                <a href="#">Умови використання</a>
+                <a href="#">Повернення</a>
+            </div>
+            <div class="footer-section">
+                <h4>МИ В МЕРЕЖІ</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮
+        </div>
+    </footer>
+
+    <!-- Post Modal -->
+    <div id="post-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h2 class="modal-title" id="modal-title"></h2>
+            <div class="modal-date" id="modal-date"></div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="artifacts-container"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/artifacts.js"></script>
+
+    <script>
+        const blogPosts = [
+            {
+                id: 1,
+                title: 'Мистецтво пікселю: від 8-бітів до сучасності',
+                category: 'pixel-art',
+                emoji: '🎨',
+                excerpt: 'Як пікселі змінили ігровий дизайн на вічність...',
+                date: '28.03.2024',
+                content: 'Пікселі – це не просто геометричні фігури. Це артефакти епохи, що розповідають історію технологічного прогресу. Коли пам\'ять була дорогою, кожен піксель мав значення. Дизайнери того часу створювали шедеври з обмеженою палітрою, показуючи, що обмеження викликають творчість. Сьогодні ретро пікселі асоціюються з ностальгією і справжньою грою. Це не лише стиль, це культура.'
+            },
+            {
+                id: 2,
+                title: 'Ретро-мода в 2024: як одягатися як гравець 80-х',
+                category: 'fashion',
+                emoji: '👾',
+                excerpt: 'Найпопулярніші стилі ретро в сучасній моді...',
+                date: '25.03.2024',
+                content: 'Ретро-мода повернулася з новою силою! Яскраві кольори, сміливі десни, 8-бітні принти – все це тепер на піку популярності. Молоде покоління переробляє класику і знаходить нові способи самовираження. 8BEAT приєднався до цього руху, створюючи гарячу одяг для справжніх геймерів. Носіть мерч, як ви грали в Pac-Man – з задоволенням і стилем!'
+            },
+            {
+                id: 3,
+                title: 'Топ-5 бітів 80-х: ТА МУЗИКА ГРАЮТЬ',
+                category: 'gaming',
+                emoji: '🎵',
+                excerpt: 'Музичні шедеври що стали легендарними...',
+                date: '20.03.2024',
+                content: 'Музика 80-х – це душа ретро-індустрії. Синтезаторні мелодії, луп-басси, драм-машини – звучання, що визначило покоління. Від Nintendo до Commodore 64, музика була не менш важливою, ніж сам геймплей. Слухайте класичні біти 8-бітної музики, носіть 8BEAT і погрузніть у світ чистої ностальгії!'
+            },
+            {
+                id: 4,
+                title: 'Кастомізація дизайну: твоя філія на футболці',
+                category: 'tips',
+                emoji: '✏️',
+                excerpt: 'Як створити унікальний дизайн у нашому кастомайзері...',
+                date: '18.03.2024',
+                content: 'Наш кастомайзер – це не просто інструмент, це студія дизайну на твоїй долоні! Виберіть базовий дизайн, додайте свій текст, змініть кольори і вуаля – твій унікальний мерч готовий. Використовуйте пікселі арту, вставляйте смайлики, експериментуйте з шарами. Кожна створена футболка – це твоя особистість!'
+            },
+            {
+                id: 5,
+                title: '8-бітна культура: як пікселі завоювали світ',
+                category: 'gaming',
+                emoji: '🕹️',
+                excerpt: 'Від простих ігор до глобальної субкультури...',
+                date: '15.03.2024',
+                content: 'Чи подумали б розробники Pong або Space Invaders, що їх прості пікселі стануть символом культури? 8-бітні ігри вчили нас стратегії, швидкості реакції і творчості. Вони були більше, ніж розвага – вони були мистецтвом. Сьогодні 8-бітна культура живе в кожній вулиці, в кожній модній колекції. 8BEAT цвітує цим золотим віком!'
+            },
+            {
+                id: 6,
+                title: 'Návrat do майбутнього: Чому ретро ніколи не вмирає',
+                category: 'pixel-art',
+                emoji: '⏰',
+                excerpt: 'Аналіз феномену ретро-ревайвалу в сучасності...',
+                date: '12.03.2024',
+                content: 'Цікавий факт: люди завжди повертаються у свої найкращі спогади. Поколінню 80-х і 90-х ретро дарує відчуття дому. Новому поколінню ретро дарує причину щось складніше за Instagram. У нас є голос мінус: той факт, що ретро продукти витримали час, їх статус як "квалітету" залишався незмінним. 8BEAT – це проводить цю естетику в сучасність!'
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderPosts(filter = 'all') {
+            const postsGrid = document.getElementById('posts-grid');
+            let filtered = filter === 'all'
+                ? blogPosts
+                : blogPosts.filter(post => post.category === filter);
+
+            postsGrid.innerHTML = filtered.map(post => `
+                <div class="post-card" onclick="openPost(${post.id})">
+                    <div class="post-image">${post.emoji}</div>
+                    <div class="post-content">
+                        <div class="post-tag">${post.category.toUpperCase()}</div>
+                        <h3 class="post-title">${post.title}</h3>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                        <div class="post-meta">
+                            <span class="post-date">${post.date}</span>
+                            <span class="read-more">ЧИТАТИ →</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterPosts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPosts(category);
+        }
+
+        function openPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (post) {
+                document.getElementById('modal-title').textContent = post.title;
+                document.getElementById('modal-date').textContent = 'Дата: ' + post.date;
+                document.getElementById('modal-body').textContent = post.content;
+                document.getElementById('post-modal').classList.add('show');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('post-modal').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('post-modal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        renderPosts();
+    </script>
+</body>
+</html>
