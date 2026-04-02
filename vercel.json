@@ -3,6 +3,7 @@
   "outputDirectory": ".",
   "framework": null,
   "rewrites": [
+    { "source": "/admin", "destination": "/pages/admin.html" },
     { "source": "/shop", "destination": "/pages/shop.html" },
     { "source": "/customizer", "destination": "/pages/customizer.html" },
     { "source": "/cart", "destination": "/pages/cart.html" },
