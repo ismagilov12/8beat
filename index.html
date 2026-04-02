@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="8BEAT — кастомізовані футболки з 8-бітним дизайном. Твій дизайн — наша ера.">
+    <title>8BEAT — Твій дизайн, наша ера</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🎮</text></svg>">
+</head>
+<body>
+    <!-- ПРОМО-АРТЕФАКТИ -->
+    <div id="artifacts-container"></div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="nav-bar">
+            <a href="index.html" class="logo">
+                <span class="logo-coin">🪙</span>
+                <span class="logo-text">8BEAT</span>
+            </a>
+            <div class="nav-links">
+                <a href="pages/shop.html" class="nav-link">🏪 Крамниця</a>
+                <a href="pages/customizer.html" class="nav-link">🎨 Кастомайзер</a>
+                <a href="pages/blog.html" class="nav-link">📜 Блог</a>
+                <a href="pages/about.html" class="nav-link">🏰 Про нас</a>
+            </div>
+            <div class="nav-right">
+                <div class="score-display">
+                    <span class="score-label">СКОР:</span>
+                    <span class="score-value" id="user-score">0000</span>
+                </div>
+                <button class="cart-btn" id="cart-btn">🛒<span class="cart-badge" id="cart-count">0</span></button>
+                <button class="menu-toggle" id="menu-btn">☰</button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="mobile-menu hidden">
+            <a href="pages/shop.html" class="mobile-link">🏪 Крамниця</a>
+            <a href="pages/customizer.html" class="mobile-link">🎨 Кастомайзер</a>
+            <a href="pages/blog.html" class="mobile-link">📜 Блог</a>
+            <a href="pages/about.html" class="mobile-link">🏰 Про нас</a>
+            <a href="pages/faq.html" class="mobile-link">❓ FAQ</a>
+            <a href="pages/contact.html" class="mobile-link">📮 Контакти</a>
+        </div>
+    </header>
+
+    <!-- HERO — СТАРТОВИЙ ЕКРАН -->
+    <section class="hero">
+        <div class="hero-sky">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="cloud cloud-3">⛅</div>
+        </div>
+        <div class="hero-content">
+            <div class="press-start-blink">▶ НАТИСНИ СТАРТ ◀</div>
+            <h1 class="hero-title">8BEAT</h1>
+            <h2 class="hero-subtitle">КАСТОМІЗУЙ СВІЙ ЛАЙФ</h2>
+            <p class="hero-desc">Створи унікальну футболку з 8-бітним дизайном. Обирай зі 100+ піксельних принтів або малюй власний. Кожна футболка — це новий рівень твого стилю!</p>
+            <div class="hero-buttons">
+                <a href="pages/shop.html" class="btn btn-red"><span class="btn-icon">🎮</span> ГРАТИ (КАТАЛОГ)</a>
+                <a href="pages/customizer.html" class="btn btn-green"><span class="btn-icon">🖌️</span> СТВОРИТИ ДИЗАЙН</a>
+            </div>
+            <div class="hero-hint"><span class="blink">★</span> Лови монетки на сайті — збирай промокоди! <span class="blink">★</span></div>
+        </div>
+        <div class="hero-ground">
+            <div class="ground-block"></div>
+            <div class="pipe pipe-left"><div class="pipe-top"></div><div class="pipe-body"></div></div>
+            <div class="pipe pipe-right"><div class="pipe-top"></div><div class="pipe-body"></div></div>
+        </div>
+    </section>
+
+    <!-- РІВЕНЬ 1: ТОП ДИЗАЙНИ -->
+    <section class="section level-section" id="popular">
+        <div class="level-header">
+            <div class="level-badge">РІВЕНЬ 1</div>
+            <h2 class="section-title">ТОП ДИЗАЙНИ СЕЗОНУ</h2>
+            <div class="title-bricks"><span class="brick"></span><span class="brick"></span><span class="brick"></span><span class="brick gold"></span><span class="brick"></span><span class="brick"></span><span class="brick"></span></div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card" data-id="1">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#E52521 30%,#049CD8 70%)"><div class="product-badge">ХІТ!</div><div class="product-coins">350 🪙</div></div>
+                <h3 class="product-name">Pixel Heart</h3>
+                <div class="product-meta"><span class="product-price">від 350₴</span><span class="product-rating">★★★★★</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="1">🛒 В КОШИК</button>
+            </div>
+            <div class="product-card" data-id="2">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#049CD8 30%,#FBD000 70%)"><div class="product-badge">НОВ!</div><div class="product-coins">420 🪙</div></div>
+                <h3 class="product-name">Ретро Бластер</h3>
+                <div class="product-meta"><span class="product-price">від 420₴</span><span class="product-rating">★★★★☆</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="2">🛒 В КОШИК</button>
+            </div>
+            <div class="product-card" data-id="3">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#43B047 30%,#E52521 70%)"><div class="product-coins">380 🪙</div></div>
+                <h3 class="product-name">Грибочок 1UP</h3>
+                <div class="product-meta"><span class="product-price">від 380₴</span><span class="product-rating">★★★★★</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="3">🛒 В КОШИК</button>
+            </div>
+            <div class="product-card" data-id="4">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#FBD000 30%,#43B047 70%)"><div class="product-coins">450 🪙</div></div>
+                <h3 class="product-name">Зоряний Воїн</h3>
+                <div class="product-meta"><span class="product-price">від 450₴</span><span class="product-rating">★★★★☆</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="4">🛒 В КОШИК</button>
+            </div>
+            <div class="product-card" data-id="5">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#E52521 30%,#FBD000 70%)"><div class="product-badge">🔥</div><div class="product-coins">500 🪙</div></div>
+                <h3 class="product-name">Фаєрбол Фанк</h3>
+                <div class="product-meta"><span class="product-price">від 500₴</span><span class="product-rating">★★★★★</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="5">🛒 В КОШИК</button>
+            </div>
+            <div class="product-card" data-id="6">
+                <div class="product-image pixel-border" style="background:linear-gradient(135deg,#7B53AD 30%,#049CD8 70%)"><div class="product-coins">390 🪙</div></div>
+                <h3 class="product-name">Привид Аркади</h3>
+                <div class="product-meta"><span class="product-price">від 390₴</span><span class="product-rating">★★★★☆</span></div>
+                <button class="btn btn-sm btn-blue add-to-cart" data-id="6">🛒 В КОШИК</button>
+            </div>
+        </div>
+        <div class="section-cta"><a href="pages/shop.html" class="btn btn-yellow">ДИВИТИСЬ ВСІ РІВНІ →</a></div>
+    </section>
+
+    <!-- РІВЕНЬ 2: ЯК ГРАТИ -->
+    <section class="section how-it-works">
+        <div class="level-header">
+            <div class="level-badge">РІВЕНЬ 2</div>
+            <h2 class="section-title">ЯК ГРАТИ?</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">🎯</div>
+                <h3 class="step-title">ОБИРАЙ БАЗУ</h3>
+                <p class="step-desc">Вибери модель футболки та колір. Чорна, біла, сіра — як пікселі на екрані, тільки на тобі.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">🎨</div>
+                <h3 class="step-title">МАЛЮЙ ДИЗАЙН</h3>
+                <p class="step-desc">Використай наш кастомайзер — малюй піксель за пікселем, додавай текст, завантажуй арти.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">⭐</div>
+                <h3 class="step-title">ЗБИРАЙ ЛАЙКИ</h3>
+                <p class="step-desc">Перевір прев'ю, додай в кошик. Кожне замовлення — +100 до скору та шанс на промо-дроп!</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">📦</div>
+                <h3 class="step-title">ОТРИМУЙ ЛУТ</h3>
+                <p class="step-desc">Нова Пошта, 2-5 днів. Розпакуй свій лут-бокс з кастомним мерчем. GG WP!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- БОНУСНИЙ РІВЕНЬ: ПРОМО-ЗОНА -->
+    <section class="section promo-zone">
+        <div class="level-header">
+            <div class="level-badge boss">БОНУСНИЙ РІВЕНЬ</div>
+            <h2 class="section-title">ПОЛЮВАННЯ НА АРТЕФАКТИ</h2>
+        </div>
+        <div class="promo-content">
+            <div class="promo-box pixel-border">
+                <div class="promo-icon">🪙</div>
+                <h3>МОНЕТКИ</h3>
+                <p>Літають по сайту! Клацай на них — кожна монетка додає бали до скору. Набери 500 = промокод -10%!</p>
+            </div>
+            <div class="promo-box pixel-border">
+                <div class="promo-icon">⭐</div>
+                <h3>ЗІРОЧКИ</h3>
+                <p>Рідкісний дроп! ЗМ�вляються раз на хвилину. Зловив зірочку — секретний промокод -20%!</p>
+            </div>
+            <div class="promo-box pixel-border">
+                <div class="promo-icon">🍄</div>
+                <h3>ГРИБОЧКИ 1UP</h3>
+                <p>Ховаються на сторінках. Знайди гриб — безкоштовна доставка на наступне замовлення!</p>
+            </div>
+        </div>
+        <div class="promo-scoreboard pixel-border">
+            <h3>🏆 ТВІЙ ПРОГРЕС</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="promo-progress" style="width:0%"></div>
+                <div class="progress-markers">
+                    <span class="marker" data-at="10">🪙×10</span>
+                    <span class="marker" data-at="50">-10%</span>
+                    <span class="marker" data-at="100">-20%</span>
+                </div>
+            </div>
+            <div class="progress-stats">
+                <span>Монетки: <strong id="coins-collected">0</strong></span>
+                <span>Зірочки: <strong id="stars-collected">0</strong></span>
+                <span>Грибочки: <strong id="mushrooms-collected">0</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВІДГУКИ -->
+    <section class="section testimonials">
+        <div class="level-header"><h2 class="section-title">ГРАВЦІ РЕКОМЕНДУЮТЬ</h2></div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card pixel-border">
+                <div class="testimonial-avatar">🧑‍💻</div>
+                <div class="testimonial-name">Олексій, Київ</div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"Замовив футболку з піксельним привидом — якість шалена! Тканина м'яка, принт чіткий. Рекомендую всім олдскульним геймерам!"</p>
+            </div>
+            <div class="testimonial-card pixel-border">
+                <div class="testimonial-avatar">👩‍🎨</div>
+                <div class="testimonial-name">Марина, Львів</div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"Кастомайзер — це бомба! Намалювала свого персонажа піксель за пікселем. Ношу унікальну річ, якої ні в кого нема."</p>
+            </div>
+            <div class="testimonial-card pixel-border">
+                <div class="testimonial-avatar">🎮</div>
+                <div class="testimonial-name">Дмитро, Одеса</div>
+                <div class="testimonial-stars">★★★★☆</div>
+                <p>"Думав — черговий мерч. Але коли отримав — GG! Матеріал топ, доставка за 2 дні. Замовив ще три штуки."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section newsletter">
+        <div class="newsletter-box pixel-border">
+            <div class="newsletter-icon">📮</div>
+            <h2 class="newsletter-title">РЕСПАУН ЗНИЖОК</h2>
+            <p class="newsletter-desc">Підпишись і отримай +1 ЛАЙФ (промокод на першу покупку). Ніякого спаму — тільки дропи та акції.</p>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" placeholder="твій@email.gg" class="newsletter-input pixel-border" required>
+                <button type="submit" class="btn btn-red">ПІДПИСАТИСЬ</button>
+            </form>
+            <div id="newsletter-success" class="newsletter-success hidden">✅ GG! Промокод FIRSTLIFE — знижка -15% на перше замовлення.</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-text">8BEAT</span>
+                <p class="footer-tagline">Твій дизайн — наша ера. © 2024-2026</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>НАВІГАЦІЯ</h4>
+                    <a href="pages/shop.html">🏪 Крамниця</a>
+                    <a href="pages/customizer.html">🎨 Кастомайзер</a>
+                    <a href="pages/blog.html">📜 Блог</a>
+                </div>
+                <div class="footer-col">
+                    <h4>ІНФО</h4>
+                    <a href="pages/about.html">🏰 Про нас</a>
+                    <a href="pages/faq.html">❓ FAQ</a>
+                    <a href="pages/contact.html">📮 Контакти</a>
+                </div>
+                <div class="footer-col">
+                    <h4>ЗАМОВЛЕННЯ</h4>
+                    <a href="pages/cart.html">🛒 Кошик</a>
+                    <a href="pages/checkout.html">💳 Оформити</a>
+                    <a href="pages/account.html">👤 Акаунт</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>🎮 GAME OVER? НІ, ЦЕ ТІЛЬКИ ПОЧАТОК! 🎮</p>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Промо-модал -->
+    <div id="promo-modal" class="modal hidden">
+        <div class="modal-content pixel-border">
+            <div class="modal-icon" id="modal-icon">🪙</div>
+            <h3 id="modal-title">АРТЕФАКТ ЗНАЙДЕНО!</h3>
+            <p id="modal-text">Ти зібрав монетку! +10 до скору.</p>
+            <div id="modal-promo" class="modal-promo hidden">
+                <span>Промокод:</span>
+                <code id="modal-code"></code>
+            </div>
+            <button class="btn btn-green modal-close" id="modal-close">ДАЛІ →</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/artifacts.js"></script>
+</body>
+</html>
